@@ -12,3 +12,9 @@ Minesweeper in Godot experiment
 - One: #1b27cf
 - Two: #086e25
 - Three: #d12727
+- Four: #331ea8
+- Five: #7d0a0a
+- Six: #218c81
+- Seven: #0c2623
+- Eight: #9aa17a
+- Bomb (main): #000000
