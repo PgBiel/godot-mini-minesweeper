@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://yg70wasq4js6"]
+[gd_scene load_steps=4 format=3 uid="uid://yg70wasq4js6"]
 
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_0r2jf"]
 [ext_resource type="PackedScene" uid="uid://bjob57vcphlia" path="res://scenes/start_menu_hud.tscn" id="1_420cq"]
+[ext_resource type="PackedScene" uid="uid://bnysucu1wb1lp" path="res://scenes/tile_map.tscn" id="3_xyn3p"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_0r2jf")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1152.0
@@ -10,3 +13,23 @@ offset_bottom = 648.0
 color = Color(0.709804, 0.45098, 0.176471, 1)
 
 [node name="StartMenuHUD" parent="." instance=ExtResource("1_420cq")]
+
+[node name="TileMapContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 176.0
+offset_right = 1152.0
+offset_bottom = 576.0
+size_flags_horizontal = 4
+mouse_filter = 1
+
+[node name="TileMapParent" type="Control" parent="TileMapContainer"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="TileMap" parent="TileMapContainer/TileMapParent" instance=ExtResource("3_xyn3p")]
+
+[connection signal="start_button_clicked" from="StartMenuHUD" to="." method="_on_start_menu_hud_start_button_clicked"]
+[connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
