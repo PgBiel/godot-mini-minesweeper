@@ -23,7 +23,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	generate_board(12, 12)
-	print("hello")
 
 ## Clears and inits the board
 func init_board(width: int, height: int) -> void:
@@ -78,7 +77,6 @@ func display_cell_at(cell: Board.Cell, x: int, y: int) -> void:
 		show_base_turned_cell_at(x, y)
 	else: # revealed cell, not a mine, count > 0
 		show_turned_cell_num_at(cell.count, x, y)
-	print("yay! " + ("%d" % x) + ", " + ("%d" % y) + "!")
 
 ## Try to reveal a cell at given coords (after player clicked there)
 func reveal_cell_at(x: int, y: int) -> void:

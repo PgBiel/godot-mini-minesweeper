@@ -93,7 +93,6 @@ func generate_mines(mine_count: int) -> void:
 		cell.is_mine = true
 		mines_left -= 1
 		for neighbor in neighbors_of(cell.x, cell.y):
-			print("neighbor: " + ("%d" % neighbor.x) + ", " + ("%d" % neighbor.y))
 			var i := _coords_to_arr_pos(neighbor.x, neighbor.y)
 			var neighbor_cell := board_cells[i]
 			# increase count of adjacent cells
