@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal start_button_clicked
+
 ## User-provided grid width (in cells)
 var user_width: int = 0
 ## User-provided grid height (in cells)
@@ -30,3 +32,7 @@ func _on_height_input_value_changed(value: float) -> void:
 
 func _on_mines_input_value_changed(value: float) -> void:
 	user_mines = clampi(value as int, 0, user_width * user_height)
+
+
+func _on_start_button_pressed() -> void:
+	start_button_clicked.emit()
