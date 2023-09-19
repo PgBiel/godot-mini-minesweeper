@@ -9,7 +9,7 @@ class Cell extends RefCounted:
 	var y: int
 
 	# Whether the user already clicked on this cell.
-	var revealed := true
+	var revealed := false
 
 	# The amount of neighboring mines.
 	var count := 0
