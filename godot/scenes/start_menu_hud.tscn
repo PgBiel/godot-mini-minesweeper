@@ -28,11 +28,6 @@ border_width_bottom = 3
 
 [node name="StartMenuHUD" type="CanvasLayer"]
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
-color = Color(0.709804, 0.45098, 0.176471, 1)
-
 [node name="StartButton" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -67,7 +62,7 @@ theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 72
 text = "Mini Minesweeper"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ConfigContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -80,16 +75,16 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="WidthInputContainer" type="HBoxContainer" parent="ConfigContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="WidthLabel" type="Label" parent="ConfigContainer/WidthInputContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 32
 text = "Width:"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="WidthInput" type="LineEdit" parent="ConfigContainer/WidthInputContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_4hlht")
