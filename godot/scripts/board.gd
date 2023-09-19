@@ -106,6 +106,19 @@ func init_board(width: int, height: int, mine_count: int) -> void:
 	fill_board()
 	generate_mines(mine_count)
 
+## Returns the positions of all mines in the grid
+func get_all_mines() -> Array[Vector2i]:
+	var mines: Array[Cell] = board_cells \
+		.filter(func(c: Cell): return c.is_a_mine());
+
+	var mine_positions: Array[Vector2i] = []
+
+	# workaround for .map returning untyped Array
+	mine_positions.assign(mines \
+		.map(func(c: Cell): return Vector2i(c.x, c.y)))
+
+	return mine_positions
+
 func _coords_to_arr_pos(x: int, y: int) -> int:
 	return y * width + x
 

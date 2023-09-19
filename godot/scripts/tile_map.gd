@@ -86,3 +86,8 @@ func reveal_cell_at(x: int, y: int) -> void:
 		display_cell_at(cell, x, y)
 		if cell.is_a_mine():
 			bomb_revealed.emit()
+
+## Called by main scene, reveals all bombs in the grid
+func reveal_all_bombs() -> void:
+	for mine in board.get_all_mines():
+		show_bomb_cell_at(mine.x, mine.y)
