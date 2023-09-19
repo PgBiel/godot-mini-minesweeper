@@ -44,7 +44,7 @@ func x_at_first_row(x: int) -> Vector2i:
 # returns atlas position for cell with the given number
 # basically adds the number to the position of the tile for "1"
 func _atlas_coords_turned_tile_num(num: int) -> Vector2i:
-	return x_at_first_row(tile_atlas_coords_turned_tile_1 + clampi(num, 1, 3) - 1)
+	return x_at_first_row(tile_atlas_coords_turned_tile_1 + clampi(num, 1, 8) - 1)
 
 # Displays [ ] at an unrevealed cell's location
 func show_unrevealed_cell_at(x: int, y: int) -> void:

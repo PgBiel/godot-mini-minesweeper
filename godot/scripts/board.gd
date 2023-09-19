@@ -9,7 +9,7 @@ class Cell extends RefCounted:
 	var y: int
 
 	# Whether the user already clicked on this cell.
-	var revealed := false
+	var revealed := true
 
 	# The amount of neighboring mines.
 	var count := 0
@@ -37,7 +37,7 @@ class Cell extends RefCounted:
 		return count
 
 	func set_count(num: int) -> void:
-		count = clampi(num, 0, 6)
+		count = clampi(num, 0, 8)
 
 	func set_is_mine(is_mine: bool) -> void:
 		self.is_mine = is_mine
