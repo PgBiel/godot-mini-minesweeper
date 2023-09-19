@@ -21,18 +21,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		var clicked_tile_pos: Vector2i = local_to_map(local_pos)
 		reveal_cell_at(clicked_tile_pos[0], clicked_tile_pos[1])
 
-func _ready() -> void:
-	generate_board(12, 12)
-
 ## Clears and inits the board
-func init_board(width: int, height: int) -> void:
+func init_board(width: int, height: int, mine_count: int) -> void:
 	clear_layer(cell_layer)
-	generate_board(width, height)
+	generate_board(width, height, mine_count)
 
 ## Generates the board cell instances and textures
-func generate_board(width: int, height: int) -> void:
+func generate_board(width: int, height: int, mine_count: int) -> void:
 	board = Board.new(width, height)
-	board.generate_mines(10)
+	board.generate_mines(mine_count)
 	for y in range(height):
 		for x in range(width):
 			var cell := board.get_cell_at(x, y)
