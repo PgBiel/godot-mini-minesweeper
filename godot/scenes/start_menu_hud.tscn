@@ -62,7 +62,7 @@ theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 72
 text = "Mini Minesweeper"
 
-[node name="ConfigContainer" type="VBoxContainer" parent="."]
+[node name="ConfigContainer" type="GridContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -74,17 +74,47 @@ offset_right = 271.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 2
 
-[node name="WidthInputContainer" type="HBoxContainer" parent="ConfigContainer"]
-layout_mode = 2
-
-[node name="WidthLabel" type="Label" parent="ConfigContainer/WidthInputContainer"]
+[node name="WidthLabel" type="Label" parent="ConfigContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 32
 text = "Width:"
 
-[node name="WidthInput" type="LineEdit" parent="ConfigContainer/WidthInputContainer"]
+[node name="WidthInput" type="LineEdit" parent="ConfigContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+alignment = 1
+max_length = 3
+
+[node name="HeightLabel" type="Label" parent="ConfigContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+text = "Height:"
+
+[node name="HeightInput" type="LineEdit" parent="ConfigContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+alignment = 1
+max_length = 3
+
+[node name="MinesLabel" type="Label" parent="ConfigContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+text = "Mines:"
+
+[node name="MinesInput" type="LineEdit" parent="ConfigContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_4hlht")
