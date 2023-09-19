@@ -1,22 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnysucu1wb1lp"]
 
-[ext_resource type="Texture2D" uid="uid://bnde26mlk7lc6" path="res://assets/art/initial-tile-atlas.png" id="1_6f5ba"]
+[ext_resource type="Texture2D" uid="uid://dc6cyj122ad5m" path="res://assets/art/bomb-tile-atlas.png" id="1_iw0ln"]
 [ext_resource type="Script" path="res://scripts/tile_map.gd" id="2_td7qm"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5h8vv"]
-texture = ExtResource("1_6f5ba")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k1uyf"]
+texture = ExtResource("1_iw0ln")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
 4:0/0 = 0
+5:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_f07xw"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_5h8vv")
+sources/1 = SubResource("TileSetAtlasSource_k1uyf")
 
 [node name="TileMap" type="TileMap"]
 tile_set = SubResource("TileSet_f07xw")
 format = 2
 script = ExtResource("2_td7qm")
+tile_atlas_id = 1
