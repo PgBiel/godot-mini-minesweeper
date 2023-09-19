@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjob57vcphlia"]
+
+[ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="1_4hlht"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqkkt"]
+bg_color = Color(0.215686, 0.301961, 0.643137, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_521li"]
+bg_color = Color(0.282353, 0.380392, 0.756863, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg1i8"]
+bg_color = Color(0, 0, 0, 0.309804)
+draw_center = false
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf0ca"]
+bg_color = Color(0, 0, 0, 0.309804)
+draw_center = false
+border_width_bottom = 3
+
+[node name="StartMenuHUD" type="CanvasLayer"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.709804, 0.45098, 0.176471, 1)
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -264.0
+offset_right = 64.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gqkkt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_521li")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_521li")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gqkkt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_521li")
+text = "Start"
+
+[node name="GameTitle" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -271.0
+offset_top = 63.0
+offset_right = 271.0
+offset_bottom = 128.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 72
+text = "Mini Minesweeper"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.0
+offset_top = -148.0
+offset_right = 271.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+text = "Width:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+alignment = 1
+max_length = 3
