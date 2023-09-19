@@ -1,6 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjob57vcphlia"]
 
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="1_4hlht"]
+[ext_resource type="Script" path="res://scripts/start_menu_hud.gd" id="1_v0oip"]
+[ext_resource type="Theme" uid="uid://dgvkguk1hjwkt" path="res://themes/ui_theme.tres" id="3_50yix"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqkkt"]
 bg_color = Color(0.215686, 0.301961, 0.643137, 1)
@@ -16,17 +18,8 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg1i8"]
-bg_color = Color(0, 0, 0, 0.309804)
-draw_center = false
-border_width_bottom = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf0ca"]
-bg_color = Color(0, 0, 0, 0.309804)
-draw_center = false
-border_width_bottom = 3
-
 [node name="StartMenuHUD" type="CanvasLayer"]
+script = ExtResource("1_v0oip")
 
 [node name="StartButton" type="Button" parent="."]
 anchors_preset = 7
@@ -82,15 +75,13 @@ theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 32
 text = "Width:"
 
-[node name="WidthInput" type="LineEdit" parent="ConfigContainer"]
+[node name="WidthInput" type="SpinBox" parent="ConfigContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4hlht")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+theme = ExtResource("3_50yix")
+max_value = 999.0
 alignment = 1
-max_length = 3
+update_on_text_changed = true
 
 [node name="HeightLabel" type="Label" parent="ConfigContainer"]
 layout_mode = 2
@@ -98,15 +89,13 @@ theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 32
 text = "Height:"
 
-[node name="HeightInput" type="LineEdit" parent="ConfigContainer"]
+[node name="HeightInput" type="SpinBox" parent="ConfigContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4hlht")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+theme = ExtResource("3_50yix")
+max_value = 999.0
 alignment = 1
-max_length = 3
+update_on_text_changed = true
 
 [node name="MinesLabel" type="Label" parent="ConfigContainer"]
 layout_mode = 2
@@ -114,12 +103,10 @@ theme_override_fonts/font = ExtResource("1_4hlht")
 theme_override_font_sizes/font_size = 32
 text = "Mines:"
 
-[node name="MinesInput" type="LineEdit" parent="ConfigContainer"]
+[node name="MinesInput" type="SpinBox" parent="ConfigContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_4hlht")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_jg1i8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_cf0ca")
+theme = ExtResource("3_50yix")
+max_value = 999.0
 alignment = 1
-max_length = 3
+update_on_text_changed = true
