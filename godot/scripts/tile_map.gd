@@ -1,5 +1,7 @@
 extends TileMap
 
+signal bomb_clicked
+
 @export var cell_layer: int = 0
 @export var tile_atlas_id: int = 0
 @export var tile_atlas_coords_empty_tile: int = 0
@@ -84,4 +86,4 @@ func reveal_cell_at(x: int, y: int) -> void:
 		cell.reveal()
 		display_cell_at(cell, x, y)
 		if cell.is_a_mine():
-			print("mine hit!")
+			bomb_clicked.emit()
