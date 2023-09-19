@@ -14,7 +14,7 @@ var board: Board
 
 # On click, try to reveal cell
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("tile_reveal"):
+	if event.is_action_released("tile_reveal") and board != null:
 		# convert global pos to local
 		# fixes scaling problem
 		var local_pos = to_local(event.position)
