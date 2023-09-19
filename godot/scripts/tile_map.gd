@@ -13,7 +13,10 @@ var board: Board
 # On click, try to reveal cell
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("tile_reveal"):
-		var clicked_tile_pos: Vector2i = local_to_map(event.position)
+		# convert global pos to local
+		# fixes scaling problem
+		var local_pos = to_local(event.position)
+		var clicked_tile_pos: Vector2i = local_to_map(local_pos)
 		reveal_cell_at(clicked_tile_pos[0], clicked_tile_pos[1])
 
 # Called when the node enters the scene tree for the first time.
