@@ -107,6 +107,10 @@ text = "Mines:"
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("3_50yix")
-max_value = 999.0
+max_value = 0.0
 alignment = 1
 update_on_text_changed = true
+
+[connection signal="value_changed" from="ConfigContainer/WidthInput" to="." method="_on_width_input_value_changed"]
+[connection signal="value_changed" from="ConfigContainer/HeightInput" to="." method="_on_height_input_value_changed"]
+[connection signal="value_changed" from="ConfigContainer/MinesInput" to="." method="_on_mines_input_value_changed"]
