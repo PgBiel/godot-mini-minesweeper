@@ -23,6 +23,7 @@ tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_spqoh")
 
 [node name="TileMap" type="TileMap"]
+scale = Vector2(0.65, 0.65)
 tile_set = SubResource("TileSet_f07xw")
 format = 2
 script = ExtResource("2_td7qm")
