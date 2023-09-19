@@ -18,3 +18,8 @@ Minesweeper in Godot experiment
 - Seven: #0c2623
 - Eight: #9aa17a
 - Bomb (main): #000000
+
+## License
+
+- MIT license
+- Romulus font by deviantart user Pix3M (https://www.deviantart.com/pix3m/art/Bitmap-font-Romulus-380739406)
