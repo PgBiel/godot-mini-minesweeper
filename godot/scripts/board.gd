@@ -3,27 +3,29 @@ class_name Board extends Node
 @export var width: int = 1
 @export var height: int = 1
 
-# Represents a Board's cell.
+## Represents a Board's cell.
 class Cell extends RefCounted:
 	var x: int
 	var y: int
 
-	# Whether the user already clicked on this cell.
+	## Whether the user already clicked on this cell.
 	var revealed := false
 
-	# The amount of neighboring mines.
+	## The amount of neighboring mines.
 	var count := 0
 
-	# If this cell is a mine.
+	## If this cell is a mine.
 	var is_mine := false
 
 	func _init(x: int, y: int):
 		self.x = x
 		self.y = y
 
+	## Marks this cell as revealed.
 	func reveal() -> void:
 		revealed = true
 
+	## Marks this cell as not revealed.
 	func unreveal() -> void:
 		revealed = false
 
@@ -33,23 +35,25 @@ class Cell extends RefCounted:
 	func is_a_mine() -> bool:
 		return is_mine
 
+	## Gets the amount of neighboring mines to this cell.
 	func get_count() -> int:
 		return count
 
+	## Sets the amount of neighboring mines to this cell.
 	func set_count(num: int) -> void:
 		count = clampi(num, 0, 8)
 
 	func set_is_mine(is_mine: bool) -> void:
 		self.is_mine = is_mine
 
-	# Resets this cell to the default state
-	# (unrevealed, count of 0, not mine).
+	## Resets this cell to the default state
+	## (unrevealed, count of 0, not mine).
 	func reset() -> void:
 		unreveal()
 		count = 0
 		is_mine = false
 
-	# Copy this cell.
+	## Copy this cell.
 	func copy() -> Cell:
 		var cell := Cell.new(x, y)
 		cell.revealed = revealed
@@ -57,16 +61,18 @@ class Cell extends RefCounted:
 		cell.is_mine = is_mine
 		return cell
 
-# Array of arrays of Cells representing this board.
-# Notation: board_cells[Y * width + X]
+## Flattened array of arrays of Cells representing this board.
+##
+## Notation: board_cells[Y * width + X]
 var board_cells: Array[Cell] = []
 
+## Inits the board, also filling it with default (unrevealed) cells.
 func _init(width: int, height: int):
 	self.width = width
 	self.height = height
 	fill_board()
 
-# Fills this board with default cells.
+## Fills this board with default cells.
 func fill_board() -> void:
 	board_cells.clear()
 	for i in range(width * height):
@@ -75,7 +81,7 @@ func fill_board() -> void:
 		var y := coords.y
 		board_cells.append(Cell.new(x, y))
 
-# Randomly places mines in this board.
+## Randomly places 'mine_count' mines in this board.
 func generate_mines(mine_count: int) -> void:
 	var mines_left := mine_count
 	var not_mine_filter = func(c: Cell): return not c.is_a_mine()
@@ -93,7 +99,8 @@ func generate_mines(mine_count: int) -> void:
 			# increase count of adjacent cells
 			neighbor_cell.count += 1
 
-# Inits this board with the given width, height and mine count.
+## Inits this board with the given width, height and mine count
+## (mines are placed randomly through 'generate_mines').
 func init_board(width: int, height: int, mine_count: int) -> void:
 	self.width = width
 	self.height = height
@@ -106,7 +113,7 @@ func _coords_to_arr_pos(x: int, y: int) -> int:
 func _arr_pos_to_coords(arr_pos: int) -> Vector2i:
 	return Vector2i(arr_pos % width, arr_pos / width)
 
-# Returns true if the coordinates are valid in this board
+## Returns true if the coordinates are valid in this board
 func coords_within_bounds(x: int, y: int) -> bool:
 	return (
 		x >= 0
@@ -115,7 +122,7 @@ func coords_within_bounds(x: int, y: int) -> bool:
 		and y < height
 	)
 
-# Sets cell values at a position
+## Sets cell attributes at the given position.
 func set_cell_at(cell: Cell, x: int, y: int) -> void:
 	if coords_within_bounds(x, y):
 		var i: int = _coords_to_arr_pos(x, y)
@@ -124,8 +131,8 @@ func set_cell_at(cell: Cell, x: int, y: int) -> void:
 		new_cell.y = y
 		board_cells[i] = new_cell
 
-# Returns the cell at a given position, if valid,
-# or null.
+## Returns the cell at a given position, if valid,
+## or null otherwise.
 func get_cell_at(x: int, y: int) -> Cell:
 	if coords_within_bounds(x, y):
 		var i: int = _coords_to_arr_pos(x, y)
@@ -133,8 +140,8 @@ func get_cell_at(x: int, y: int) -> Cell:
 	else:
 		return null
 
-# Returns all valid neighboring cell positions of a given cell position
-# (Must be a valid coordinate in the board)
+## Returns all valid neighboring cell positions of a given cell position,
+## if they are valid positions within the board.
 func neighbors_of(x: int, y: int) -> Array[Vector2i]:
 	var neighbors: Array[Vector2i] = [
 		Vector2i(x - 1, y),
