@@ -104,7 +104,9 @@ func reveal_all_bombs() -> void:
 	for mine in board.get_all_mines():
 		show_bomb_cell_at(mine.x, mine.y)
 
-# from https://ask.godotengine.org/3276/tilemap-size
+## Calculate a TileMap's bounds
+##
+## From https://ask.godotengine.org/3276/tilemap-size
 func calculate_bounds(tilemap: TileMap) -> Rect2:
 	var cell_bounds: Rect2 = tilemap.get_used_rect()
 	var tile_size = tilemap.tile_set.tile_size
@@ -117,9 +119,11 @@ func calculate_bounds(tilemap: TileMap) -> Rect2:
 	# apply transform
 	return Rect2(cell_to_pixel * cell_bounds.position, cell_to_pixel * cell_bounds.size)
 
+## Nudge the TileMap to the left a bit so that placing it by its top left
+## centers it
 func center_tilemap_horizontally() -> void:
 	var total_width: float = get_viewport().size.x
 	var self_width: float = calculate_bounds(self).size.x
-	var new_x: float = maxf(0.0, (total_width / 2) - (self_width / 2))
+	var new_x: float = maxf(-total_width / 2, -self_width / 2)
 
 	position.x = new_x

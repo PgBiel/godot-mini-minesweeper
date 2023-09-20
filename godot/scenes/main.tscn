@@ -17,22 +17,19 @@ color = Color(0.709804, 0.45098, 0.176471, 1)
 
 [node name="StartMenuHUD" parent="." instance=ExtResource("1_420cq")]
 
-[node name="TileMapContainer" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 176.0
-offset_right = 1152.0
-offset_bottom = 576.0
-size_flags_horizontal = 4
-mouse_filter = 1
+[node name="TileMapContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TileMapParent" type="Control" parent="TileMapContainer"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 mouse_filter = 1
 
 [node name="TileMap" parent="TileMapContainer/TileMapParent" instance=ExtResource("3_xyn3p")]
+position = Vector2(0, -50)
 
 [connection signal="start_button_clicked" from="StartMenuHUD" to="." method="_on_start_menu_hud_start_button_clicked"]
 [connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
