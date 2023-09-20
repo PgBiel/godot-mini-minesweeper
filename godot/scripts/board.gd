@@ -92,14 +92,20 @@ func fill_board() -> void:
 ## Setting excludes to an empty array does not exclude any cells.
 func generate_mines(mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 	var mines_left := mine_count
-	var cells_to_exclude: Array[Vector2i] = []
-	if width * height - mine_excludes.size() >= mine_count:
-		# there must be at least 'mine_count' available non-excluded cells
-		cells_to_exclude = mine_excludes
+
+	# non-deterministic exclusion
+	mine_excludes.shuffle()
+	var available_count = width * height - mine_excludes.size()
+	while (width * height - mine_excludes.size()) < mine_count:
+		# ignore exclusions until there are enough available cells
+		# to fit the mines in
+		mine_excludes.pop_back()
 
 	var available_cell_filter = func(c: Cell):
-		return not c.is_a_mine() and c.position() not in cells_to_exclude
+		return not c.is_a_mine() and c.position() not in mine_excludes
 	var available_cells: Array[Cell] = board_cells.filter(available_cell_filter)
+
+	# random mine placement
 	available_cells.shuffle()
 
 	while mines_left > 0 and not available_cells.is_empty():
