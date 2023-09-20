@@ -95,7 +95,6 @@ func generate_mines(mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 
 	# non-deterministic exclusion
 	mine_excludes.shuffle()
-	var available_count = width * height - mine_excludes.size()
 	while (width * height - mine_excludes.size()) < mine_count:
 		# ignore exclusions until there are enough available cells
 		# to fit the mines in
