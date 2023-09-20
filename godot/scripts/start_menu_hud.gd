@@ -11,7 +11,9 @@ var user_mines: int = 0
 
 ## Sets max mines to width * height
 func update_max_mines():
-	$ConfigContainer/MinesInput.max_value = user_width * user_height
+	var new_max_mines := user_width * user_height
+	$ConfigContainer/MinesInput.max_value = new_max_mines
+	$ConfigContainer/MinesInput.value = mini($ConfigContainer/MinesInput.value, new_max_mines)
 
 ## Resets the configuration values
 func reset():
