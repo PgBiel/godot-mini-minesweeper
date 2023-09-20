@@ -30,7 +30,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# reveal the clicked cell, plus, if it had a count of zero,
 		# reveal its neighbors recursively
-		for pos in board.get_empty_tile_vein(clicked_tile_pos.x, clicked_tile_pos.y):
+		var adjacent_vein_cells = board.get_empty_tile_vein(clicked_tile_pos.x, clicked_tile_pos.y)
+		for pos in adjacent_vein_cells:
 			reveal_cell_at(pos.x, pos.y)
 
 ## Clears and inits the board

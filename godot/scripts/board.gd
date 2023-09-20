@@ -206,7 +206,8 @@ func neighbors_of(x: int, y: int) -> Array[Vector2i]:
 ## if the cell with the given position does not exist.
 func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
 	var cell: Cell = get_cell_at(x, y)
-	if cell == null:
+	if cell == null or cell.is_revealed():
+		# don't re-reveal a cell, or reveal one that doesn't exist
 		return []
 	if cell.is_a_mine():
 		# only reveal the mine itself
@@ -219,7 +220,7 @@ func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
 		var cell_stack: Array[Cell] = [cell]
 		while !cell_stack.is_empty():
 			var current_cell: Cell = cell_stack.pop_back()
-			if current_cell == null:
+			if current_cell == null or current_cell.is_revealed():
 				continue
 
 			vein_cells.push_back(current_cell.position())
