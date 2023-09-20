@@ -21,6 +21,10 @@ class Cell extends RefCounted:
 		self.x = x
 		self.y = y
 
+	## Returns this cell's position as a Vector2i.
+	func position() -> Vector2i:
+		return Vector2i(x, y)
+
 	## Marks this cell as revealed.
 	func reveal() -> void:
 		revealed = true
@@ -82,14 +86,24 @@ func fill_board() -> void:
 		board_cells.append(Cell.new(x, y))
 
 ## Randomly places 'mine_count' mines in this board.
-func generate_mines(mine_count: int) -> void:
+## Assumes the board does not have any existing mines
+## Does not place mines in the excluded locations, unless the mine count
+## would surpass (total - excluded).
+## Setting excludes to an empty array does not exclude any cells.
+func generate_mines(mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 	var mines_left := mine_count
-	var not_mine_filter = func(c: Cell): return not c.is_a_mine()
-	var non_mines: Array[Cell] = board_cells.filter(not_mine_filter)
-	non_mines.shuffle()
+	var cells_to_exclude: Array[Vector2i] = []
+	if width * height - mine_excludes.size() >= mine_count:
+		# there must be at least 'mine_count' available non-excluded cells
+		cells_to_exclude = mine_excludes
 
-	while mines_left > 0 and not non_mines.is_empty():
-		var cell: Cell = non_mines.pop_back()
+	var available_cell_filter = func(c: Cell):
+		return not c.is_a_mine() and c.position() not in cells_to_exclude
+	var available_cells: Array[Cell] = board_cells.filter(available_cell_filter)
+	available_cells.shuffle()
+
+	while mines_left > 0 and not available_cells.is_empty():
+		var cell: Cell = available_cells.pop_back()
 		cell.is_mine = true
 		mines_left -= 1
 		for neighbor in neighbors_of(cell.x, cell.y):
@@ -100,11 +114,11 @@ func generate_mines(mine_count: int) -> void:
 
 ## Inits this board with the given width, height and mine count
 ## (mines are placed randomly through 'generate_mines').
-func init_board(width: int, height: int, mine_count: int) -> void:
+func init_board(width: int, height: int, mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 	self.width = width
 	self.height = height
 	fill_board()
-	generate_mines(mine_count)
+	generate_mines(mine_count, mine_excludes)
 
 ## Returns the positions of all mines in the grid
 func get_all_mines() -> Array[Vector2i]:

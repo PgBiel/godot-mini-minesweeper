@@ -12,24 +12,35 @@ signal bomb_revealed
 ## Currently active minesweeper board
 var board: Board
 
+var mines_placed := false
+var mine_count := 0
+
 # On click, try to reveal cell
+# (also generate mines if they were not already generated)
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("tile_reveal") and board != null:
 		# convert global pos to local
 		# fixes scaling problem
 		var local_pos = to_local(event.position)
 		var clicked_tile_pos: Vector2i = local_to_map(local_pos)
-		reveal_cell_at(clicked_tile_pos[0], clicked_tile_pos[1])
+		if not mines_placed:
+			mines_placed = true
+			# exclude the clicked pos from mine placement, if possible
+			board.generate_mines(mine_count, [clicked_tile_pos])
+
+		reveal_cell_at(clicked_tile_pos.x, clicked_tile_pos.y)
 
 ## Clears and inits the board
 func init_board(width: int, height: int, mine_count: int) -> void:
 	clear_layer(cell_layer)
-	generate_board(width, height, mine_count)
+	generate_board(width, height)
+	mines_placed = false
+	self.mine_count = mine_count
 
 ## Generates the board cell instances and textures
-func generate_board(width: int, height: int, mine_count: int) -> void:
+func generate_board(width: int, height: int) -> void:
 	board = Board.new(width, height)
-	board.generate_mines(mine_count)
+	# we place mines on first click
 	for y in range(height):
 		for x in range(width):
 			var cell := board.get_cell_at(x, y)
