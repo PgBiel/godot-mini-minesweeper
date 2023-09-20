@@ -36,6 +36,7 @@ func init_board(width: int, height: int, mine_count: int) -> void:
 	generate_board(width, height)
 	mines_placed = false
 	self.mine_count = mine_count
+	center_tilemap_horizontally()
 
 ## Generates the board cell instances and textures
 func generate_board(width: int, height: int) -> void:
@@ -99,3 +100,23 @@ func reveal_cell_at(x: int, y: int) -> void:
 func reveal_all_bombs() -> void:
 	for mine in board.get_all_mines():
 		show_bomb_cell_at(mine.x, mine.y)
+
+# from https://ask.godotengine.org/3276/tilemap-size
+func calculate_bounds(tilemap: TileMap) -> Rect2:
+	var cell_bounds: Rect2 = tilemap.get_used_rect()
+	var tile_size = tilemap.tile_set.tile_size
+	# create transform
+	var cell_to_pixel = Transform2D(
+		Vector2(tile_size.x * tilemap.scale.x, 0),
+		Vector2(0, tile_size.y * tilemap.scale.y),
+		Vector2()
+	)
+	# apply transform
+	return Rect2(cell_to_pixel * cell_bounds.position, cell_to_pixel * cell_bounds.size)
+
+func center_tilemap_horizontally() -> void:
+	var total_width: float = get_viewport().size.x
+	var self_width: float = calculate_bounds(self).size.x
+	var new_x: float = maxf(0.0, (total_width / 2) - (self_width / 2))
+
+	position.x = new_x
