@@ -176,6 +176,11 @@ func get_cell_at(x: int, y: int) -> Cell:
 	else:
 		return null
 
+## Returns the cell at a given position, if valid,
+## or null otherwise.
+func get_cell_at_pos(pos: Vector2i) -> Cell:
+	return get_cell_at(pos.x, pos.y)
+
 ## Returns all valid neighboring cell positions of a given cell position,
 ## if they are valid positions within the board.
 func neighbors_of(x: int, y: int) -> Array[Vector2i]:
@@ -192,3 +197,40 @@ func neighbors_of(x: int, y: int) -> Array[Vector2i]:
 
 	neighbors = neighbors.filter(func(coords: Vector2i): return coords_within_bounds(coords.x, coords.y))
 	return neighbors
+
+## Given a cell position, indicates all cells adjacent to it
+## (directly or not) which would be revealed at the same time
+## as that cell due to it being a zero count non-mine cell.
+## Returns an array of cells to reveal at the same time as this
+## one (unit array for count > 0 or mine cells), and empty array
+## if the cell with the given position does not exist.
+func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
+	var cell: Cell = get_cell_at(x, y)
+	if cell == null:
+		return []
+	if cell.is_a_mine():
+		# only reveal the mine itself
+		return [cell.position()]
+
+	var vein_cells: Array[Vector2i] = []
+	if not cell.is_a_mine():
+		# DFS: keep going through cell neighbors
+		# until we hit non-empty cells and stop
+		var cell_stack: Array[Cell] = [cell]
+		while !cell_stack.is_empty():
+			var current_cell: Cell = cell_stack.pop_back()
+			if current_cell == null:
+				continue
+
+			vein_cells.push_back(current_cell.position())
+			if current_cell.count == 0:
+				# this is an empty cell
+				# => reveal its neighbors as well
+				cell_stack \
+					.append_array(
+						neighbors_of(current_cell.x, current_cell.y) \
+							.filter(func(pos: Vector2i): return pos not in vein_cells) \
+							.map(func(pos: Vector2i): return get_cell_at_pos(pos))
+					)
+
+	return vein_cells
