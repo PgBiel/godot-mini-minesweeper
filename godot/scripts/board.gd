@@ -86,23 +86,28 @@ func fill_board() -> void:
 		board_cells.append(Cell.new(x, y))
 
 ## Randomly places 'mine_count' mines in this board.
-## Assumes the board does not have any existing mines
 ## Does not place mines in the excluded locations, unless the mine count
 ## would surpass (total - excluded).
 ## Setting excludes to an empty array does not exclude any cells.
 func generate_mines(mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 	var mines_left := mine_count
 
+	var not_mine_cells := board_cells.filter(func(c: Cell): return not c.is_a_mine())
+	var not_mine_count := not_mine_cells.size()
+
 	# non-deterministic exclusion
 	mine_excludes.shuffle()
-	while (width * height - mine_excludes.size()) < mine_count:
+	while (
+		not mine_excludes.is_empty()
+		and (not_mine_count - mine_excludes.size()) < mine_count
+	):
 		# ignore exclusions until there are enough available cells
 		# to fit the mines in
 		mine_excludes.pop_back()
 
 	var available_cell_filter = func(c: Cell):
-		return not c.is_a_mine() and c.position() not in mine_excludes
-	var available_cells: Array[Cell] = board_cells.filter(available_cell_filter)
+		return c.position() not in mine_excludes
+	var available_cells := not_mine_cells.filter(available_cell_filter)
 
 	# random mine placement
 	available_cells.shuffle()
