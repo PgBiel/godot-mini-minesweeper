@@ -14,6 +14,8 @@ draw_center = false
 border_width_bottom = 3
 
 [resource]
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_8b237")
 LineEdit/font_sizes/font_size = 32
 LineEdit/fonts/font = ExtResource("1_8b237")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_phixb")
