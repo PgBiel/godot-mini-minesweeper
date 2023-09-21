@@ -28,7 +28,7 @@ concurrency:
 env:
   GODOT_VERSION: "4.1.1"
   GODOT_FOLDER: "godot" # contains the project.godot file
-  SITE_FOLDER: "_site" # where to export site assets to
+  SITE_PATH: "_site" # where to export site assets to
 
 jobs:
   # Build job
@@ -48,8 +48,7 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Setup site path
         run: |
-          export SITE_PATH="${{ steps.pages.outputs.base_path }}/${SITE_FOLDER}"
-          mkdir "${SITE_PATH}"
+          mkdir -p "${SITE_PATH}"
       - name: 🔬 Verify Setup
         run: |
           godot --version
@@ -69,7 +68,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ${{ env.SITE_FOLDER }}
+          path: ${{ env.SITE_PATH }}
 
   # Deployment job
   deploy:
