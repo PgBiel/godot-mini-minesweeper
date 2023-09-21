@@ -1,6 +1,12 @@
 extends TileMap
 
+## Signals a bomb was revealed by the player.
 signal bomb_revealed
+
+## Signals either a cell was flagged or a cell
+## had its flag removed. Provides the new amount of
+## flagged cells.
+signal flagged_cells_updated(new_count: int)
 
 @export var cell_layer: int = 0
 @export var tile_atlas_id: int = 0
@@ -21,6 +27,9 @@ var mines_placed := false
 
 ## Total amount of mines we are expected to have on the grid
 var mine_count := 0
+
+## Positions of flagged cells
+var flagged_cells: Array[Vector2i] = []
 
 # On click, try to reveal cell
 # (also generate mines if they were not already generated)
@@ -130,6 +139,16 @@ func toggle_flag_at(x: int, y: int) -> void:
 	if cell != null and not cell.is_revealed():
 		board.toggle_cell_flag(x, y)
 		display_cell_at(cell, x, y)
+
+		# keep track of flagged cells
+		var pos := cell.position()
+		var i := flagged_cells.find(pos)
+		if i > -1 and not cell.flagged:
+			flagged_cells.remove_at(i)
+			flagged_cells_updated.emit(flagged_cells.size())
+		elif i <= -1 and cell.flagged:
+			flagged_cells.append(pos)
+			flagged_cells_updated.emit(flagged_cells.size())
 
 ## Called by main scene, reveals all bombs in the grid
 func reveal_all_bombs() -> void:
