@@ -7,6 +7,9 @@ func start():
 	var width: int = $StartMenuHUD.user_width
 	var height: int = $StartMenuHUD.user_height
 	var mines: int = $StartMenuHUD.user_mines
+	$IngameHUD.set_mine_count(mines)
+	$IngameHUD.show()
+
 	tile_map.init_board(width, height, mines)
 	$TileMapContainer.show()
 	print("starting game")

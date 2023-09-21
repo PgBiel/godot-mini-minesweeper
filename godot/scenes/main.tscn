@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://yg70wasq4js6"]
+[gd_scene load_steps=5 format=3 uid="uid://yg70wasq4js6"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0r2jf"]
 [ext_resource type="PackedScene" uid="uid://bjob57vcphlia" path="res://scenes/start_menu_hud.tscn" id="1_420cq"]
+[ext_resource type="PackedScene" uid="uid://c6vkacqi2ivse" path="res://scenes/ingame_hud.tscn" id="3_6b23r"]
 [ext_resource type="PackedScene" uid="uid://bnysucu1wb1lp" path="res://scenes/tile_map.tscn" id="3_xyn3p"]
 
 [node name="Main" type="Node"]
@@ -16,6 +17,9 @@ grow_vertical = 2
 color = Color(0.709804, 0.45098, 0.176471, 1)
 
 [node name="StartMenuHUD" parent="." instance=ExtResource("1_420cq")]
+
+[node name="IngameHUD" parent="." instance=ExtResource("3_6b23r")]
+visible = false
 
 [node name="TileMapContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
