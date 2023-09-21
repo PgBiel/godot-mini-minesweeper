@@ -17,11 +17,14 @@ grow_vertical = 2
 color = Color(0.709804, 0.45098, 0.176471, 1)
 
 [node name="StartMenuHUD" parent="." instance=ExtResource("1_420cq")]
+unique_name_in_owner = true
 
 [node name="IngameHUD" parent="." instance=ExtResource("3_6b23r")]
+unique_name_in_owner = true
 visible = false
 
 [node name="TileMapContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,9 +36,11 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="TileMap" parent="TileMapContainer/TileMapParent" instance=ExtResource("3_xyn3p")]
+unique_name_in_owner = true
 position = Vector2(0, -50)
 
 [connection signal="continue_button_clicked" from="StartMenuHUD" to="." method="resume_game"]
 [connection signal="start_button_clicked" from="StartMenuHUD" to="." method="start"]
 [connection signal="return_button_clicked" from="IngameHUD" to="." method="go_back"]
 [connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
+[connection signal="flagged_cells_updated" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_flagged_cells_updated"]
