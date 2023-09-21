@@ -62,6 +62,7 @@ jobs:
         run: |
           cd ${GODOT_FOLDER}
           godot --headless --path . --export-release Web "${SITE_PATH}/index.html"
+          ls "${SITE_PATH}/index.html" # fail this job if export failed
       - name: Patch site to load coi-service-worker
         run: |
           sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_PATH}/index.html"
