@@ -35,6 +35,7 @@ mouse_filter = 1
 [node name="TileMap" parent="TileMapContainer/TileMapParent" instance=ExtResource("3_xyn3p")]
 position = Vector2(0, -50)
 
-[connection signal="start_button_clicked" from="StartMenuHUD" to="." method="_on_start_menu_hud_start_button_clicked"]
-[connection signal="return_button_clicked" from="IngameHUD" to="." method="_on_ingame_hud_return_button_clicked"]
+[connection signal="continue_button_clicked" from="StartMenuHUD" to="." method="resume_game"]
+[connection signal="start_button_clicked" from="StartMenuHUD" to="." method="start"]
+[connection signal="return_button_clicked" from="IngameHUD" to="." method="go_back"]
 [connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
