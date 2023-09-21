@@ -28,6 +28,7 @@ concurrency:
 env:
   GODOT_VERSION: "4.1.1"
   GODOT_FOLDER: "godot" # contains the project.godot file
+  SITE_FOLDER: "_site" # where to export site assets to
 
 jobs:
   # Build job
@@ -45,23 +46,30 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+      - name: Setup site path
+        run: |
+          export SITE_PATH="${{ steps.pages.outputs.base_path }}/${SITE_FOLDER}"
+          mkdir -p "${SITE_PATH}"
       - name: 🔬 Verify Setup
         run: |
           godot --version
           echo "Pages base path: ${{ steps.pages.outputs.base_path }}"
+          echo "Site path: ${SITE_PATH}"
       - name: Bundle coi-service-worker # fix CORS problem
         run: |
           git clone https://github.com/gzuidhof/coi-serviceworker.git
-          mv coi-serviceworker/coi-serviceworker.min.js "${{ steps.pages.outputs.base_path }}/coi-serviceworker.min.js"
+          mv coi-serviceworker/coi-serviceworker.min.js "${SITE_PATH}/coi-serviceworker.min.js"
       - name: Export game
         run: |
           cd ${GODOT_FOLDER}
-          godot --headless --path . --export-release Web "${{ steps.pages.outputs.base_path }}/index.html"
+          godot --headless --path . --export-release Web "${SITE_PATH}/index.html"
       - name: Patch site to load coi-service-worker
         run: |
-          sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${{ steps.pages.outputs.base_path }}/index.html"
+          sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_PATH}/index.html"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          path: ${{ env.SITE_FOLDER }}
 
   # Deployment job
   deploy:
