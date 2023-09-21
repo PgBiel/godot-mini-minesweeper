@@ -3,6 +3,8 @@ Minesweeper in Godot experiment
 
 ## Color Palette
 
+Sprites:
+
 - Empty tile (main): #a3a3a3
 - Empty tile (border light): #707070
 - Empty tile (border dark): #4a4a4a
@@ -18,6 +20,11 @@ Minesweeper in Godot experiment
 - Seven: #0c2623
 - Eight: #9aa17a
 - Bomb (main): #000000
+
+UI:
+
+- Flat input normal: #cccccc
+- Focused flat input: #8d9cf0
 
 ## License
 
