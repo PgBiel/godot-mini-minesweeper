@@ -16,6 +16,11 @@ border_width_bottom = 3
 [resource]
 Button/font_sizes/font_size = 32
 Button/fonts/font = ExtResource("1_8b237")
+FlatButton/base_type = &"Button"
+FlatButton/colors/font_color = Color(1, 1, 1, 1)
+FlatButton/colors/font_focus_color = Color(0.552941, 0.611765, 0.941176, 1)
+FlatButton/colors/font_hover_color = Color(0.552941, 0.611765, 0.941176, 1)
+FlatButton/colors/font_hover_pressed_color = Color(0.552941, 0.611765, 0.941176, 1)
 LineEdit/font_sizes/font_size = 32
 LineEdit/fonts/font = ExtResource("1_8b237")
 LineEdit/styles/focus = SubResource("StyleBoxFlat_phixb")
