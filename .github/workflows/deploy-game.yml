@@ -61,8 +61,7 @@ jobs:
           echo "Site path: ${SITE_PATH}"
       - name: 📦 Bundle coi-service-worker # fix CORS problem
         run: |
-          git clone https://github.com/gzuidhof/coi-serviceworker.git
-          mv coi-serviceworker/coi-serviceworker.js -T "${SITE_PATH}/coi-serviceworker.js"
+          mv coi-serviceworker.js -T "${SITE_PATH}/coi-serviceworker.js"
       - name: 🛠️ Export game
         run: |
           cd ${GODOT_FOLDER}
