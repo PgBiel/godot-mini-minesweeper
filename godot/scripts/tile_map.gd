@@ -49,15 +49,15 @@ func _unhandled_input(event: InputEvent) -> void:
 				# exclude the clicked pos from mine placement, if possible
 				board.generate_mines(mine_count, [clicked_tile_pos])
 
-			# reveal the clicked cell, plus, if it had a count of zero,
-			# reveal its neighbors recursively
-			var adjacent_vein_cells := board.get_empty_tile_vein(clicked_tile_pos.x, clicked_tile_pos.y)
-			for pos in adjacent_vein_cells:
-				reveal_cell_at(pos.x, pos.y)
+			reveal_cell_with_vein(clicked_tile_pos.x, clicked_tile_pos.y)
 
 		elif event.is_action_released("tile_flag"):
 			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
 			toggle_flag_at(clicked_tile_pos.x, clicked_tile_pos.y)
+
+		elif event.is_action_released("tile_reveal_neighbors"):
+			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
+			fast_reveal_neighbors(clicked_tile_pos.x, clicked_tile_pos.y)
 
 ## Clears and inits the board
 func init_board(width: int, height: int, mine_count: int) -> void:
@@ -123,6 +123,16 @@ func display_cell_at(cell: Board.Cell, x: int, y: int) -> void:
 	else: # revealed cell, not a mine, count > 0
 		show_turned_cell_num_at(cell.count, x, y)
 
+## Reveal a cell at given coords alongside any empty tile "vein"
+## around it, if any. (The revealed cell must itself be an empty tile,
+## a.k.a. count = 0 and not mine, for this to happen.)
+func reveal_cell_with_vein(x: int, y: int) -> void:
+	# reveal the clicked cell, plus, if it had a count of zero,
+	# reveal its neighbors recursively
+	var adjacent_vein_cells := board.get_empty_tile_vein(x, y)
+	for pos in adjacent_vein_cells:
+		reveal_cell_at(pos.x, pos.y)
+
 ## Try to reveal a cell at given coords (after player clicked there)
 func reveal_cell_at(x: int, y: int) -> void:
 	var cell := board.get_cell_at(x, y)
@@ -149,6 +159,13 @@ func toggle_flag_at(x: int, y: int) -> void:
 		elif i <= -1 and cell.flagged:
 			flagged_cells.append(pos)
 			flagged_cells_updated.emit(flagged_cells.size())
+
+## Fast reveal all (safe) neighbors of a revealed cell upon middle click.
+## "Safe neighbors" include any unflagged cells, unless a cell was incorrectly
+## flagged, in which case you may trigger a game over condition.
+func fast_reveal_neighbors(x: int, y: int) -> void:
+	for safe_neighbor in board.get_safe_neighbors_of(x, y):
+		reveal_cell_with_vein(safe_neighbor.x, safe_neighbor.y)
 
 ## Called by main scene, reveals all bombs in the grid
 func reveal_all_bombs() -> void:

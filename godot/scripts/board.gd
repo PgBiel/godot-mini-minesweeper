@@ -261,3 +261,32 @@ func toggle_cell_flag(x: int, y: int) -> void:
 	var cell: Cell = get_cell_at(x, y)
 	if cell != null:
 		cell.flagged = not cell.flagged
+
+## Gets neighbors of a revealed non-mine cell which are not flagged mines.
+## Useful to implement middle-click fast reveal.
+func get_safe_neighbors_of(x: int, y: int) -> Array[Vector2i]:
+	var cell: Cell = get_cell_at(x, y)
+	# no safe neighbors if the cell isn't yet revealed, or no flags around it
+	if (
+		cell == null
+		or not cell.is_revealed()
+		or cell.is_a_mine()
+		or not cell_has_flagged_neighbors(x, y)
+	):
+		return []
+
+	# keep only neighbors which aren't flagged mines
+	var safe_pos_filter := func(pos: Vector2i):
+		var neighbor_cell := get_cell_at_pos(pos)
+		return neighbor_cell != null and not (cell.flagged and cell.is_a_mine())
+
+	return neighbors_of(x, y).filter(safe_pos_filter)
+
+## Returns 'true' if the cell has at least one flagged neighbor.
+## This enables middle click fast reveal of neighbors.
+func cell_has_flagged_neighbors(x: int, y: int) -> bool:
+	return neighbors_of(x, y).any(
+		func(pos: Vector2i):
+			var cell := get_cell_at_pos(pos)
+			return cell != null and cell.flagged
+	)
