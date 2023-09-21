@@ -48,26 +48,30 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Setup site path
         run: |
-          export SITE_FULL_PATH="$(realpath "${SITE_PATH}")"
-          mkdir -p "${SITE_FULL_PATH}"
+          # use an absolute path
+          export SITE_PATH="$(realpath "${SITE_PATH}")"
+          # ensure it exists
+          mkdir -p "${SITE_PATH}"
+          # export it for the next jobs
+          echo "SITE_PATH=${SITE_PATH}" >> $GITHUB_ENV
       - name: 🔬 Verify Setup
         run: |
           godot --version
           echo "Pages base path: ${{ steps.pages.outputs.base_path }}"
-          echo "Site path: ${SITE_PATH} (full path: ${SITE_FULL_PATH})"
+          echo "Site path: ${SITE_PATH}"
       - name: Bundle coi-service-worker # fix CORS problem
         run: |
           git clone https://github.com/gzuidhof/coi-serviceworker.git
-          mv coi-serviceworker/coi-serviceworker.min.js "${SITE_FULL_PATH}/coi-serviceworker.min.js"
+          mv coi-serviceworker/coi-serviceworker.min.js "${SITE_PATH}/coi-serviceworker.min.js"
       - name: Export game
         run: |
           cd ${GODOT_FOLDER}
           cp export_presets_ci.cfg export_presets.cfg # godot expects export_presets.cfg to exist
-          godot --headless --path . --export-release Web "${SITE_FULL_PATH}/index.html"
-          ls "${SITE_FULL_PATH}/index.html" # fail this job if export failed
+          godot --headless --path . --export-release Web "${SITE_PATH}/index.html"
+          ls "${SITE_PATH}/index.html" # fail this job if export failed
       - name: Patch site to load coi-service-worker
         run: |
-          sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_FULL_PATH}/index.html"
+          sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_PATH}/index.html"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
