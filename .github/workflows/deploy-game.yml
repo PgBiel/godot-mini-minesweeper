@@ -49,7 +49,7 @@ jobs:
       - name: Setup site path
         run: |
           export SITE_PATH="${{ steps.pages.outputs.base_path }}/${SITE_FOLDER}"
-          mkdir -p "${SITE_PATH}"
+          mkdir "${SITE_PATH}"
       - name: 🔬 Verify Setup
         run: |
           godot --version
