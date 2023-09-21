@@ -71,7 +71,9 @@ jobs:
           ls "${SITE_PATH}/index.html" # fail this job if export failed
       - name: 🩹 Patch site to load coi-service-worker
         run: |
-          sed -i 's|<head>|<head><script src="coi-serviceworker.js"></script>|' "${SITE_PATH}/index.html"
+          echo "OK - we're already including it through Godot itself"
+          # Old procedure:
+          # sed -i 's|<head>|<head><script src="coi-serviceworker.js"></script>|' "${SITE_PATH}/index.html"
       - name: 📤 Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
