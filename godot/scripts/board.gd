@@ -227,7 +227,13 @@ func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
 		var cell_stack: Array[Cell] = [cell]
 		while !cell_stack.is_empty():
 			var current_cell: Cell = cell_stack.pop_back()
-			if current_cell == null or current_cell.is_revealed():
+			# don't automatically open revealed, flagged or (duh)
+			# non-existing cells
+			if (
+				current_cell == null
+				or current_cell.is_revealed()
+				or current_cell.flagged
+			):
 				continue
 
 			vein_cells.push_back(current_cell.position())
