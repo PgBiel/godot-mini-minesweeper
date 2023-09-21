@@ -17,6 +17,9 @@ class Cell extends RefCounted:
 	## If this cell is a mine.
 	var is_mine := false
 
+	## Whether this cell was flagged by the user.
+	var flagged := false
+
 	func _init(x: int, y: int):
 		self.x = x
 		self.y = y
@@ -50,6 +53,9 @@ class Cell extends RefCounted:
 	func set_is_mine(is_mine: bool) -> void:
 		self.is_mine = is_mine
 
+	func set_flagged(flagged: bool) -> void:
+		self.flagged = flagged
+
 	## Resets this cell to the default state
 	## (unrevealed, count of 0, not mine).
 	func reset() -> void:
@@ -63,6 +69,7 @@ class Cell extends RefCounted:
 		cell.revealed = revealed
 		cell.count = count
 		cell.is_mine = is_mine
+		cell.flagged = flagged
 		return cell
 
 ## Flattened array of arrays of Cells representing this board.
@@ -235,3 +242,10 @@ func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
 					)
 
 	return vein_cells
+
+## Toggle whether or not a cell at a given position was flagged by the user
+## as a potential mine.
+func toggle_cell_flag(x: int, y: int) -> void:
+	var cell: Cell = get_cell_at(x, y)
+	if cell != null:
+		cell.flagged = not cell.flagged

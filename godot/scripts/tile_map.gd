@@ -5,9 +5,10 @@ signal bomb_revealed
 @export var cell_layer: int = 0
 @export var tile_atlas_id: int = 0
 @export var tile_atlas_coords_empty_tile: int = 0
-@export var tile_atlas_coords_bomb_tile: int = 1
-@export var tile_atlas_coords_base_turned_tile: int = 2
-@export var tile_atlas_coords_turned_tile_1: int = 3
+@export var tile_atlas_coords_flag_tile: int = 1
+@export var tile_atlas_coords_bomb_tile: int = 2
+@export var tile_atlas_coords_base_turned_tile: int = 3
+@export var tile_atlas_coords_turned_tile_1: int = 4
 
 ## Currently active minesweeper board
 var board: Board
@@ -24,21 +25,30 @@ var mine_count := 0
 # On click, try to reveal cell
 # (also generate mines if they were not already generated)
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("tile_reveal") and board != null and game_active:
-		# convert global pos to local
-		# fixes scaling problem
-		var local_pos = to_local(event.position)
-		var clicked_tile_pos: Vector2i = local_to_map(local_pos)
-		if not mines_placed:
-			mines_placed = true
-			# exclude the clicked pos from mine placement, if possible
-			board.generate_mines(mine_count, [clicked_tile_pos])
+	if board != null and game_active:
+		var get_clicked_pos := func() -> Vector2i:
+			# convert global pos to local
+			# fixes scaling problem
+			var local_pos: Vector2i = to_local(event.position)
+			var clicked_tile_pos: Vector2i = local_to_map(local_pos)
+			return clicked_tile_pos
 
-		# reveal the clicked cell, plus, if it had a count of zero,
-		# reveal its neighbors recursively
-		var adjacent_vein_cells = board.get_empty_tile_vein(clicked_tile_pos.x, clicked_tile_pos.y)
-		for pos in adjacent_vein_cells:
-			reveal_cell_at(pos.x, pos.y)
+		if event.is_action_released("tile_reveal"):
+			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
+			if not mines_placed:
+				mines_placed = true
+				# exclude the clicked pos from mine placement, if possible
+				board.generate_mines(mine_count, [clicked_tile_pos])
+
+			# reveal the clicked cell, plus, if it had a count of zero,
+			# reveal its neighbors recursively
+			var adjacent_vein_cells := board.get_empty_tile_vein(clicked_tile_pos.x, clicked_tile_pos.y)
+			for pos in adjacent_vein_cells:
+				reveal_cell_at(pos.x, pos.y)
+
+		elif event.is_action_released("tile_flag"):
+			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
+			toggle_flag_at(clicked_tile_pos.x, clicked_tile_pos.y)
 
 ## Clears and inits the board
 func init_board(width: int, height: int, mine_count: int) -> void:
@@ -78,6 +88,10 @@ func show_unrevealed_cell_at(x: int, y: int) -> void:
 func show_base_turned_cell_at(x: int, y: int) -> void:
 	set_cell(cell_layer, Vector2i(x, y), tile_atlas_id, x_at_first_row(tile_atlas_coords_base_turned_tile))
 
+## Displays a flag at an unrevealed cell's location
+func show_flag_cell_at(x: int, y: int) -> void:
+	set_cell(cell_layer, Vector2i(x, y), tile_atlas_id, x_at_first_row(tile_atlas_coords_flag_tile))
+
 ## Displays a bomb at a revealed cell's location
 func show_bomb_cell_at(x: int, y: int) -> void:
 	set_cell(cell_layer, Vector2i(x, y), tile_atlas_id, x_at_first_row(tile_atlas_coords_bomb_tile))
@@ -89,7 +103,10 @@ func show_turned_cell_num_at(num: int, x: int, y: int) -> void:
 ## Set the cell texture at a given coord, based on its data
 func display_cell_at(cell: Board.Cell, x: int, y: int) -> void:
 	if not cell.is_revealed():
-		show_unrevealed_cell_at(x, y)
+		if cell.flagged:
+			show_flag_cell_at(x, y)
+		else:
+			show_unrevealed_cell_at(x, y)
 	elif cell.is_a_mine():
 		show_bomb_cell_at(x, y)
 	elif cell.get_count() == 0:
@@ -105,6 +122,14 @@ func reveal_cell_at(x: int, y: int) -> void:
 		display_cell_at(cell, x, y)
 		if cell.is_a_mine():
 			bomb_revealed.emit()
+
+## Toggles whether a cell at a position is flagged.
+## Updates the Board instance and also the cell's graphical appearance.
+func toggle_flag_at(x: int, y: int) -> void:
+	var cell: Board.Cell = board.get_cell_at(x, y)
+	if cell != null:
+		board.toggle_cell_flag(x, y)
+		display_cell_at(cell, x, y)
 
 ## Called by main scene, reveals all bombs in the grid
 func reveal_all_bombs() -> void:
