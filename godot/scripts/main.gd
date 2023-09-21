@@ -15,9 +15,19 @@ func start():
 	$TileMapContainer/TileMapParent/TileMap.game_active = true
 	print("starting game")
 
+func go_back():
+	$IngameHUD.hide()
+	$TileMapContainer.hide()
+	$TileMapContainer/TileMapParent/TileMap.game_active = false
+	$StartMenuHUD.show()
+
 func _on_start_menu_hud_start_button_clicked() -> void:
 	start()
 
 func _on_tile_map_bomb_revealed() -> void:
 	tile_map.reveal_all_bombs()
 	print("whoops")
+
+
+func _on_ingame_hud_return_button_clicked() -> void:
+	go_back()
