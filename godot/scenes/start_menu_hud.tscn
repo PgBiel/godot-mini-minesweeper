@@ -39,7 +39,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gqkkt")
 theme_override_styles/hover = SubResource("StyleBoxFlat_521li")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_521li")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gqkkt")
-theme_override_styles/focus = SubResource("StyleBoxFlat_521li")
+theme_override_styles/focus = SubResource("StyleBoxFlat_gqkkt")
 text = "Start"
 
 [node name="GameTitle" type="Label" parent="."]
