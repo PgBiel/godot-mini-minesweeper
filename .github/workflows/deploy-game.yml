@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  GODOT_VERSION: "4.1.1.stable"
+  GODOT_VERSION: "4.1.1-stable"
   GODOT_FOLDER: "godot" # contains the project.godot file
 
 jobs:
