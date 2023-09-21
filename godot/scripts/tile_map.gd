@@ -12,13 +12,19 @@ signal bomb_revealed
 ## Currently active minesweeper board
 var board: Board
 
+## Whether the game is active and we should respond to clicks on the grid
+var game_active := false
+
+## Whether we have already generated mines on the grid
 var mines_placed := false
+
+## Total amount of mines we are expected to have on the grid
 var mine_count := 0
 
 # On click, try to reveal cell
 # (also generate mines if they were not already generated)
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("tile_reveal") and board != null:
+	if event.is_action_released("tile_reveal") and board != null and game_active:
 		# convert global pos to local
 		# fixes scaling problem
 		var local_pos = to_local(event.position)

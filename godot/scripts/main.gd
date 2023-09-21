@@ -12,6 +12,7 @@ func start():
 
 	tile_map.init_board(width, height, mines)
 	$TileMapContainer.show()
+	$TileMapContainer/TileMapParent/TileMap.game_active = true
 	print("starting game")
 
 func _on_start_menu_hud_start_button_clicked() -> void:
