@@ -29,8 +29,10 @@ class Cell extends RefCounted:
 		return Vector2i(x, y)
 
 	## Marks this cell as revealed.
+	## Removes its flag, if it exists.
 	func reveal() -> void:
 		revealed = true
+		flagged = false
 
 	## Marks this cell as not revealed.
 	func unreveal() -> void:
@@ -213,8 +215,12 @@ func neighbors_of(x: int, y: int) -> Array[Vector2i]:
 ## if the cell with the given position does not exist.
 func get_empty_tile_vein(x: int, y: int) -> Array[Vector2i]:
 	var cell: Cell = get_cell_at(x, y)
-	if cell == null or cell.is_revealed():
-		# don't re-reveal a cell, or reveal one that doesn't exist
+	if (
+		cell == null
+		or cell.is_revealed()
+		or cell.flagged
+	):
+		# don't re-reveal a cell, or reveal one that doesn't exist or is flagged
 		return []
 	if cell.is_a_mine():
 		# only reveal the mine itself

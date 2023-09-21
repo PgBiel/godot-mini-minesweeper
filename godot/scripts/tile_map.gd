@@ -127,7 +127,7 @@ func reveal_cell_at(x: int, y: int) -> void:
 ## Updates the Board instance and also the cell's graphical appearance.
 func toggle_flag_at(x: int, y: int) -> void:
 	var cell: Board.Cell = board.get_cell_at(x, y)
-	if cell != null:
+	if cell != null and not cell.is_revealed():
 		board.toggle_cell_flag(x, y)
 		display_cell_at(cell, x, y)
 
