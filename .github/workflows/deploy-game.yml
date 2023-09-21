@@ -62,7 +62,7 @@ jobs:
       - name: 📦 Bundle coi-service-worker # fix CORS problem
         run: |
           git clone https://github.com/gzuidhof/coi-serviceworker.git
-          mv coi-serviceworker/coi-serviceworker.min.js "${SITE_PATH}/coi-serviceworker.min.js"
+          mv coi-serviceworker/coi-serviceworker.js -T "${SITE_PATH}/coi-serviceworker.js"
       - name: 🛠️ Export game
         run: |
           cd ${GODOT_FOLDER}
@@ -71,7 +71,7 @@ jobs:
           ls "${SITE_PATH}/index.html" # fail this job if export failed
       - name: 🩹 Patch site to load coi-service-worker
         run: |
-          sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_PATH}/index.html"
+          sed -i 's|<head>|<head><script src="coi-serviceworker.js"></script>|' "${SITE_PATH}/index.html"
       - name: 📤 Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
