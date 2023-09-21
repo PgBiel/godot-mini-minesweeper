@@ -1,22 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjob57vcphlia"]
+[gd_scene load_steps=4 format=3 uid="uid://bjob57vcphlia"]
 
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="1_4hlht"]
 [ext_resource type="Script" path="res://scripts/start_menu_hud.gd" id="1_v0oip"]
 [ext_resource type="Theme" uid="uid://dgvkguk1hjwkt" path="res://themes/ui_theme.tres" id="3_50yix"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqkkt"]
-bg_color = Color(0.215686, 0.301961, 0.643137, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_521li"]
-bg_color = Color(0.282353, 0.380392, 0.756863, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [node name="StartMenuHUD" type="CanvasLayer"]
 script = ExtResource("1_v0oip")
@@ -33,14 +19,26 @@ offset_right = 64.0
 offset_bottom = -200.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("1_4hlht")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_gqkkt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_521li")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_521li")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_gqkkt")
-theme_override_styles/focus = SubResource("StyleBoxFlat_gqkkt")
+theme = ExtResource("3_50yix")
+theme_type_variation = &"NormalBigButton"
 text = "Start"
+
+[node name="ContinueButton" type="Button" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -176.0
+offset_right = 64.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_50yix")
+theme_type_variation = &"GreenBigButton"
+text = "Resume"
 
 [node name="GameTitle" type="Label" parent="."]
 anchors_preset = 5
@@ -112,6 +110,7 @@ alignment = 1
 update_on_text_changed = true
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="value_changed" from="ConfigContainer/WidthInput" to="." method="_on_width_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/HeightInput" to="." method="_on_height_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/MinesInput" to="." method="_on_mines_input_value_changed"]
