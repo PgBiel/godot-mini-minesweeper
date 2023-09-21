@@ -35,7 +35,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 📥 Checkout
         uses: actions/checkout@v3
       - uses: chickensoft-games/setup-godot@v1
         name: 🤖 Setup Godot # downloads templates automatically
@@ -43,10 +43,10 @@ jobs:
           version: ${{ env.GODOT_VERSION }}
           # .NET not needed
           use-dotnet: false
-      - name: Setup Pages
+      - name: 📄 Setup Pages
         id: pages
         uses: actions/configure-pages@v3
-      - name: Setup site path
+      - name: 📂 Setup site path
         run: |
           # use an absolute path
           export SITE_PATH="$(realpath "${SITE_PATH}")"
@@ -59,20 +59,20 @@ jobs:
           godot --version
           echo "Pages base path: ${{ steps.pages.outputs.base_path }}"
           echo "Site path: ${SITE_PATH}"
-      - name: Bundle coi-service-worker # fix CORS problem
+      - name: 📦 Bundle coi-service-worker # fix CORS problem
         run: |
           git clone https://github.com/gzuidhof/coi-serviceworker.git
           mv coi-serviceworker/coi-serviceworker.min.js "${SITE_PATH}/coi-serviceworker.min.js"
-      - name: Export game
+      - name: 🛠️ Export game
         run: |
           cd ${GODOT_FOLDER}
           cp export_presets_ci.cfg export_presets.cfg # godot expects export_presets.cfg to exist
           godot --headless --path . --export-release Web "${SITE_PATH}/index.html"
           ls "${SITE_PATH}/index.html" # fail this job if export failed
-      - name: Patch site to load coi-service-worker
+      - name: 🩹 Patch site to load coi-service-worker
         run: |
           sed -i "s|<head>|<head><script src="coi-serviceworker.min.js"></script>|" "${SITE_PATH}/index.html"
-      - name: Upload artifact
+      - name: 📤 Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ${{ env.SITE_PATH }}
