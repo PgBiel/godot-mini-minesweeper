@@ -139,6 +139,11 @@ func init_board(width: int, height: int, mine_count: int, mine_excludes: Array[V
 	fill_board()
 	generate_mines(mine_count, mine_excludes)
 
+## Total amount of cells in this board
+## (Equal to 'width * height')
+func total_cell_count() -> int:
+	return width * height
+
 ## Returns the positions of all mines in the grid
 func get_all_mines() -> Array[Vector2i]:
 	var mines: Array[Cell] = board_cells \

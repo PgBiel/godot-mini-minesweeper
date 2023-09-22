@@ -3,6 +3,9 @@ extends TileMap
 ## Signals a bomb was revealed by the player.
 signal bomb_revealed
 
+## Signals the player won (revealed all non-mine cells).
+signal victory
+
 ## Signals either a cell was flagged or a cell
 ## had its flag removed. Provides the new amount of
 ## flagged cells.
@@ -28,6 +31,9 @@ var mines_placed := false
 ## Total amount of mines we are expected to have on the grid
 var mine_count := 0
 
+## Amount of revealed cells
+var revealed_cells := 0
+
 ## Positions of flagged cells
 var flagged_cells: Array[Vector2i] = []
 
@@ -50,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				board.generate_mines(mine_count, [clicked_tile_pos])
 
 			reveal_cell_with_vein(clicked_tile_pos.x, clicked_tile_pos.y)
+			check_win()
 
 		elif event.is_action_released("tile_flag"):
 			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
@@ -58,6 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_released("tile_reveal_neighbors"):
 			var clicked_tile_pos: Vector2i = get_clicked_pos.call()
 			fast_reveal_neighbors(clicked_tile_pos.x, clicked_tile_pos.y)
+			check_win()
 
 ## Clears and inits the board
 func init_board(width: int, height: int, mine_count: int) -> void:
@@ -68,10 +76,12 @@ func init_board(width: int, height: int, mine_count: int) -> void:
 	flagged_cells = []
 	flagged_cells_updated.emit(0)
 	center_tilemap_horizontally()
+	check_win()
 
 ## Generates the board cell instances and textures
 func generate_board(width: int, height: int) -> void:
 	board = Board.new(width, height)
+	revealed_cells = 0
 	# we place mines on first click
 	for y in range(height):
 		for x in range(width):
@@ -134,15 +144,24 @@ func reveal_cell_with_vein(x: int, y: int) -> void:
 	var adjacent_vein_cells := board.get_empty_tile_vein(x, y)
 	for pos in adjacent_vein_cells:
 		reveal_cell_at(pos.x, pos.y)
+	check_win()
 
 ## Try to reveal a cell at given coords (after player clicked there)
 func reveal_cell_at(x: int, y: int) -> void:
 	var cell := board.get_cell_at(x, y)
 	if cell != null and not cell.is_revealed():
 		cell.reveal()
+		revealed_cells += 1
 		display_cell_at(cell, x, y)
 		if cell.is_a_mine():
 			bomb_revealed.emit()
+
+## Check for a player win
+func check_win() -> void:
+	# Amount of unrevealed cells == amount of mines
+	# => player must have won (came at this point without revealing a mine)
+	if game_active and (board.total_cell_count() - revealed_cells) == mine_count:
+		victory.emit()
 
 ## Toggles whether a cell at a position is flagged.
 ## Updates the Board instance and also the cell's graphical appearance.
