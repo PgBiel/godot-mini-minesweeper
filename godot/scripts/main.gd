@@ -5,6 +5,9 @@ extends Node
 var total_mines := 0
 var mines_left_amount := 0
 
+func _ready() -> void:
+	hide_tile_map()
+
 func start() -> void:
 	%StartMenuHUD.hide()
 	var width: int = %StartMenuHUD.user_width
