@@ -17,6 +17,42 @@
 [node name="IngameHUD" type="CanvasLayer"]
 script = ExtResource("1_8nob4")
 
+[node name="GameOverLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 95.0
+offset_right = 74.0
+offset_bottom = 126.0
+grow_horizontal = 2
+theme = ExtResource("1_fv8hd")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 55
+text = "GAME OVER"
+
+[node name="VictoryLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 95.0
+offset_right = 74.0
+offset_bottom = 126.0
+grow_horizontal = 2
+theme = ExtResource("1_fv8hd")
+theme_override_colors/font_color = Color(0.215686, 0.631373, 0.223529, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 55
+text = "VICTORY"
+
 [node name="Titlebar" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 10
@@ -42,6 +78,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_a1ilh")
 text = "< BACK"
 
 [node name="MineCount" type="Label" parent="Titlebar"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
