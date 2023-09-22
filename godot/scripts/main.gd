@@ -4,6 +4,7 @@ extends Node
 
 var total_mines := 0
 var mines_left_amount := 0
+var game_over := false
 
 func _ready() -> void:
 	hide_tile_map()
@@ -14,12 +15,13 @@ func start() -> void:
 	var height: int = %StartMenuHUD.user_height
 	var mines: int = %StartMenuHUD.user_mines
 	%IngameHUD.set_mine_count(mines)
+	%IngameHUD.set_result_in_progress()
 	%IngameHUD.show()
-	show_tile_map()
 	total_mines = mines
 	mines_left_amount = mines
 	tile_map.init_board(width, height, mines)
-	print("starting game")
+	game_over = false
+	show_tile_map()
 
 ## Returns to the start menu.
 func go_back() -> void:
@@ -44,16 +46,26 @@ func switch_to_start_menu() -> void:
 
 func show_tile_map() -> void:
 	%TileMapContainer.show()
-	%TileMap.game_active = true
+	%TileMap.game_active = not game_over
 
 func hide_tile_map() -> void:
 	%TileMapContainer.hide()
 	%TileMap.game_active = false
 
+func end_game() -> void:
+	game_over = true
+	tile_map.game_active = false
+
 func _on_tile_map_bomb_revealed() -> void:
 	tile_map.reveal_all_bombs()
-	print("whoops")
+	end_game()
+	%IngameHUD.set_result_game_over()
 
 func _on_tile_map_flagged_cells_updated(new_flag_count: int) -> void:
 	mines_left_amount = total_mines - new_flag_count
 	%IngameHUD.set_mine_count(mines_left_amount)
+
+
+func _on_tile_map_victory() -> void:
+	end_game()
+	%IngameHUD.set_result_victory()
