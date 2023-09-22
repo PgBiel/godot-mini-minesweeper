@@ -65,6 +65,8 @@ func init_board(width: int, height: int, mine_count: int) -> void:
 	generate_board(width, height)
 	mines_placed = false
 	self.mine_count = mine_count
+	flagged_cells = []
+	flagged_cells_updated.emit(0)
 	center_tilemap_horizontally()
 
 ## Generates the board cell instances and textures
@@ -159,6 +161,13 @@ func toggle_flag_at(x: int, y: int) -> void:
 		elif i <= -1 and cell.flagged:
 			flagged_cells.append(pos)
 			flagged_cells_updated.emit(flagged_cells.size())
+		else:
+			print_debug(
+				"[!!!] Some cell was %sflagged but %sin the flagged cells array" % [
+					"" if not cell.flagged else "not ",
+					"" if i > -1 else "not "
+				]
+			)
 
 ## Fast reveal all (safe) neighbors of a revealed cell upon middle click.
 ## "Safe neighbors" include any unflagged cells, unless a cell was incorrectly
