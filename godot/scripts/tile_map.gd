@@ -144,7 +144,6 @@ func reveal_cell_with_vein(x: int, y: int) -> void:
 	var adjacent_vein_cells := board.get_empty_tile_vein(x, y)
 	for pos in adjacent_vein_cells:
 		reveal_cell_at(pos.x, pos.y)
-	check_win()
 
 ## Try to reveal a cell at given coords (after player clicked there)
 func reveal_cell_at(x: int, y: int) -> void:
