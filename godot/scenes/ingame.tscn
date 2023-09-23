@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5w7vh4owx24e"]
+
+[ext_resource type="PackedScene" uid="uid://c6vkacqi2ivse" path="res://scenes/ingame_hud.tscn" id="1_6ha5k"]
+[ext_resource type="Script" path="res://scripts/ingame.gd" id="1_h0ll3"]
+[ext_resource type="PackedScene" uid="uid://bnysucu1wb1lp" path="res://scenes/game_grid.tscn" id="2_q150p"]
+
+[node name="Ingame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_h0ll3")
+
+[node name="IngameHUD" parent="." instance=ExtResource("1_6ha5k")]
+unique_name_in_owner = true
+
+[node name="GameGridContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameGridParent" type="Control" parent="GameGridContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="GameGrid" parent="GameGridContainer/GameGridParent" instance=ExtResource("2_q150p")]
+unique_name_in_owner = true
+position = Vector2(0, -50)
+
+[connection signal="return_button_clicked" from="IngameHUD" to="." method="go_back"]
+[connection signal="bomb_revealed" from="GameGridContainer/GameGridParent/GameGrid" to="." method="_on_game_grid_bomb_revealed"]
+[connection signal="unflagged_mine_count_updated" from="GameGridContainer/GameGridParent/GameGrid" to="." method="update_mines_left_count"]
+[connection signal="victory" from="GameGridContainer/GameGridParent/GameGrid" to="." method="_on_game_grid_victory"]

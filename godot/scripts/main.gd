@@ -1,63 +1,34 @@
 extends Node
 
-var game_over := false
-
 func _ready() -> void:
-	hide_game_grid()
+	%Ingame.hide_with_hud()
 
+## Starts the game (upon start button click).
 func start() -> void:
-	%StartMenuHUD.hide()
 	var width: int = %StartMenuHUD.user_width
 	var height: int = %StartMenuHUD.user_height
 	var mines: int = %StartMenuHUD.user_mines
-	%IngameHUD.set_mine_count(mines)
-	%IngameHUD.set_result_in_progress()
-	%IngameHUD.show()
-	%GameGrid.init_board(width, height, mines)
-	game_over = false
-	show_game_grid()
+	%Ingame.start(width, height, mines)
+	switch_to_ingame()
+	%Ingame.enable_game()
 
-## Returns to the start menu.
+## Returns to the start menu when the user clicks "BACK".
 func go_back() -> void:
-	hide_game_grid()
 	%StartMenuHUD.show_continue()
 	switch_to_start_menu()
 
 ## Resumes an ongoing game.
 func resume_game() -> void:
-	switch_to_game_hud()
-	show_game_grid()
+	switch_to_ingame()
 
-## Hides the start menu and shows the in-game HUD.
-func switch_to_game_hud() -> void:
+## Hides the start menu and shows the in-game HUD and UI.
+func switch_to_ingame() -> void:
 	%StartMenuHUD.hide()
-	%IngameHUD.show()
+	%Ingame.show_with_hud()
+	%Ingame.enable_game()
 
-## Hides the in-game HUD and shows the start menu.
+## Hides the in-game HUD and UI and shows the start menu.
 func switch_to_start_menu() -> void:
-	%IngameHUD.hide()
+	%Ingame.disable_game()
+	%Ingame.hide_with_hud()
 	%StartMenuHUD.show()
-
-func show_game_grid() -> void:
-	%GameGridContainer.show()
-	%GameGrid.game_active = not game_over
-
-func hide_game_grid() -> void:
-	%GameGridContainer.hide()
-	%GameGrid.game_active = false
-
-func end_game() -> void:
-	game_over = true
-	%GameGrid.game_active = false
-
-func _on_game_grid_bomb_revealed() -> void:
-	%GameGrid.reveal_all_bombs()
-	end_game()
-	%IngameHUD.set_result_game_over()
-
-func update_mines_left_count(new_mines_left_count: int) -> void:
-	%IngameHUD.set_mine_count(new_mines_left_count)
-
-func _on_game_grid_victory() -> void:
-	end_game()
-	%IngameHUD.set_result_victory()
