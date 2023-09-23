@@ -115,7 +115,7 @@ func generate_mines(mine_count: int, mine_excludes: Array[Vector2i]) -> void:
 		# to fit the mines in
 		mine_excludes.pop_back()
 
-	var available_cell_filter = func(c: Cell):
+	var available_cell_filter := func(c: Cell):
 		return c.position() not in mine_excludes
 	var available_cells := not_mine_cells.filter(available_cell_filter)
 

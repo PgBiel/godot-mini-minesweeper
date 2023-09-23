@@ -39,7 +39,7 @@ func apply(board: Board, ignore_failures: bool = false) -> bool:
 				continue
 			else:
 				return false
-		var new_cell = cell.copy()
+		var new_cell := cell.copy()
 		new_cell.reveal()
 		cells_to_change.append(new_cell)
 
@@ -51,7 +51,7 @@ func apply(board: Board, ignore_failures: bool = false) -> bool:
 				continue
 			else:
 				return false
-		var new_cell = cell.copy()
+		var new_cell := cell.copy()
 		new_cell.reveal()
 		cells_to_change.append(new_cell)
 
@@ -63,7 +63,7 @@ func apply(board: Board, ignore_failures: bool = false) -> bool:
 				continue
 			else:
 				return false
-		var new_cell = cell.copy()
+		var new_cell := cell.copy()
 		new_cell.flagged = true
 		cells_to_change.append(new_cell)
 
@@ -75,7 +75,7 @@ func apply(board: Board, ignore_failures: bool = false) -> bool:
 				continue
 			else:
 				return false
-		var new_cell = cell.copy()
+		var new_cell := cell.copy()
 		new_cell.flagged = false
 		cells_to_change.append(new_cell)
 

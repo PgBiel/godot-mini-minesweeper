@@ -204,7 +204,7 @@ func reveal_all_bombs() -> void:
 ## From https://ask.godotengine.org/3276/tilemap-size
 func calculate_bounds(tilemap: TileMap) -> Rect2:
 	var cell_bounds: Rect2 = tilemap.get_used_rect()
-	var tile_size = tilemap.tile_set.tile_size
+	var tile_size := tilemap.tile_set.tile_size
 	# create transform
 	var cell_to_pixel = Transform2D(
 		Vector2(tile_size.x * tilemap.scale.x, 0),
