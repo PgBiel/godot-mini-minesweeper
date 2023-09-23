@@ -1,3 +1,4 @@
+## Stores a Minesweeper board's data.
 class_name Board extends Node
 
 @export var width: int = 1
