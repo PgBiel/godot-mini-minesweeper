@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0r2jf"]
 [ext_resource type="PackedScene" uid="uid://bjob57vcphlia" path="res://scenes/start_menu_hud.tscn" id="1_420cq"]
 [ext_resource type="PackedScene" uid="uid://c6vkacqi2ivse" path="res://scenes/ingame_hud.tscn" id="3_6b23r"]
-[ext_resource type="PackedScene" uid="uid://bnysucu1wb1lp" path="res://scenes/tile_map.tscn" id="3_xyn3p"]
+[ext_resource type="PackedScene" uid="uid://bnysucu1wb1lp" path="res://scenes/game_grid.tscn" id="3_xyn3p"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0r2jf")
@@ -23,7 +23,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 visible = false
 
-[node name="TileMapContainer" type="CenterContainer" parent="."]
+[node name="GameGridContainer" type="CenterContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -32,17 +32,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TileMapParent" type="Control" parent="TileMapContainer"]
+[node name="GameGridParent" type="Control" parent="GameGridContainer"]
 layout_mode = 2
 mouse_filter = 1
 
-[node name="TileMap" parent="TileMapContainer/TileMapParent" instance=ExtResource("3_xyn3p")]
+[node name="GameGrid" parent="GameGridContainer/GameGridParent" instance=ExtResource("3_xyn3p")]
 unique_name_in_owner = true
 position = Vector2(0, -50)
 
 [connection signal="continue_button_clicked" from="StartMenuHUD" to="." method="resume_game"]
 [connection signal="start_button_clicked" from="StartMenuHUD" to="." method="start"]
 [connection signal="return_button_clicked" from="IngameHUD" to="." method="go_back"]
-[connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
-[connection signal="unflagged_mine_count_updated" from="TileMapContainer/TileMapParent/TileMap" to="." method="update_mines_left_count"]
-[connection signal="victory" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_victory"]
+[connection signal="bomb_revealed" from="GameGridContainer/GameGridParent/GameGrid" to="." method="_on_game_grid_bomb_revealed"]
+[connection signal="unflagged_mine_count_updated" from="GameGridContainer/GameGridParent/GameGrid" to="." method="update_mines_left_count"]
+[connection signal="victory" from="GameGridContainer/GameGridParent/GameGrid" to="." method="_on_game_grid_victory"]

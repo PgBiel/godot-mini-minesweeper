@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnysucu1wb1lp"]
 
 [ext_resource type="Texture2D" uid="uid://ig5fudstftvk" path="res://assets/art/all-tiles-atlas.png" id="1_1eisu"]
-[ext_resource type="Script" path="res://scripts/tile_map.gd" id="2_td7qm"]
+[ext_resource type="Script" path="res://scripts/game_grid.gd" id="2_r03ka"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_spqoh"]
 texture = ExtResource("1_1eisu")
@@ -23,8 +23,8 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_spqoh")
 
-[node name="TileMap" type="TileMap"]
+[node name="GameGrid" type="TileMap"]
 scale = Vector2(0.65, 0.65)
 tile_set = SubResource("TileSet_f07xw")
 format = 2
-script = ExtResource("2_td7qm")
+script = ExtResource("2_r03ka")
