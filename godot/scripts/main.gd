@@ -2,8 +2,6 @@ extends Node
 
 @onready var tile_map := %TileMap
 
-var total_mines := 0
-var mines_left_amount := 0
 var game_over := false
 
 func _ready() -> void:
@@ -17,8 +15,6 @@ func start() -> void:
 	%IngameHUD.set_mine_count(mines)
 	%IngameHUD.set_result_in_progress()
 	%IngameHUD.show()
-	total_mines = mines
-	mines_left_amount = mines
 	tile_map.init_board(width, height, mines)
 	game_over = false
 	show_tile_map()
@@ -61,10 +57,8 @@ func _on_tile_map_bomb_revealed() -> void:
 	end_game()
 	%IngameHUD.set_result_game_over()
 
-func _on_tile_map_flagged_cells_updated(new_flag_count: int) -> void:
-	mines_left_amount = total_mines - new_flag_count
-	%IngameHUD.set_mine_count(mines_left_amount)
-
+func update_mines_left_count(new_mines_left_count: int) -> void:
+	%IngameHUD.set_mine_count(new_mines_left_count)
 
 func _on_tile_map_victory() -> void:
 	end_game()

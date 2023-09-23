@@ -44,5 +44,5 @@ position = Vector2(0, -50)
 [connection signal="start_button_clicked" from="StartMenuHUD" to="." method="start"]
 [connection signal="return_button_clicked" from="IngameHUD" to="." method="go_back"]
 [connection signal="bomb_revealed" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_bomb_revealed"]
-[connection signal="flagged_cells_updated" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_flagged_cells_updated"]
+[connection signal="unflagged_mine_count_updated" from="TileMapContainer/TileMapParent/TileMap" to="." method="update_mines_left_count"]
 [connection signal="victory" from="TileMapContainer/TileMapParent/TileMap" to="." method="_on_tile_map_victory"]

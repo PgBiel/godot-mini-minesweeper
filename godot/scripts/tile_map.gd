@@ -8,8 +8,8 @@ signal victory
 
 ## Signals either a cell was flagged or a cell
 ## had its flag removed. Provides the new amount of
-## flagged cells.
-signal flagged_cells_updated(new_count: int)
+## remaining mines to flag.
+signal unflagged_mine_count_updated(new_count: int)
 
 @export var cell_layer: int = 0
 @export var tile_atlas_id: int = 0
@@ -74,7 +74,7 @@ func init_board(width: int, height: int, mine_count: int) -> void:
 	mines_placed = false
 	self.mine_count = mine_count
 	flagged_cells = []
-	flagged_cells_updated.emit(0)
+	unflagged_mine_count_updated.emit(mine_count)
 	center_tilemap_horizontally()
 	check_win()
 
@@ -175,10 +175,10 @@ func toggle_flag_at(x: int, y: int) -> void:
 		var i := flagged_cells.find(pos)
 		if i > -1 and not cell.flagged:
 			flagged_cells.remove_at(i)
-			flagged_cells_updated.emit(flagged_cells.size())
+			unflagged_mine_count_updated.emit(mine_count - flagged_cells.size())
 		elif i <= -1 and cell.flagged:
 			flagged_cells.append(pos)
-			flagged_cells_updated.emit(flagged_cells.size())
+			unflagged_mine_count_updated.emit(mine_count - flagged_cells.size())
 		else:
 			print_debug(
 				"[!!!] Some cell was %sflagged but %sin the flagged cells array" % [
