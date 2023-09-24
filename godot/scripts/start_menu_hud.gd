@@ -19,7 +19,7 @@ var user_mines: int = 0
 @export var presets: Array[Dictionary] = [
 	{ name = "Basic", width = 9, height = 9, mines = 10 },
 	{ name = "Medium", width = 16, height = 16, mines = 40 },
-	{ name = "Expert", width = 16, height = 30, mines = 99 },
+	{ name = "Expert", width = 30, height = 16, mines = 99 },
 	{ name = "Custom", width = 0, height = 0, mines = 0 },
 ]
 
