@@ -64,7 +64,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -271.0
 offset_top = -148.0
-offset_right = 271.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -115,8 +114,49 @@ max_value = 0.0
 alignment = 1
 update_on_text_changed = true
 
+[node name="AdjacentConfigContainer" type="GridContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -148.0
+offset_right = 271.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="PresetLabel" type="Label" parent="AdjacentConfigContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4hlht")
+theme_override_font_sizes/font_size = 32
+text = "Preset:"
+
+[node name="PresetControl" type="Control" parent="AdjacentConfigContainer"]
+layout_mode = 2
+
+[node name="PresetInput" type="OptionButton" parent="AdjacentConfigContainer/PresetControl"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = -4.0
+offset_right = 141.0
+offset_bottom = 32.0
+theme = ExtResource("3_50yix")
+item_count = 4
+selected = 0
+popup/item_0/text = "Basic"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Expert"
+popup/item_2/id = 2
+popup/item_3/text = "Custom"
+popup/item_3/id = 3
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="value_changed" from="ConfigContainer/WidthInput" to="." method="_on_width_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/HeightInput" to="." method="_on_height_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/MinesInput" to="." method="_on_mines_input_value_changed"]
+[connection signal="item_selected" from="AdjacentConfigContainer/PresetControl/PresetInput" to="." method="apply_preset"]
