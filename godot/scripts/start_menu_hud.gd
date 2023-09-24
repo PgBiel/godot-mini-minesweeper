@@ -19,8 +19,8 @@ func _ready() -> void:
 ## Sets max mines to width * height
 func update_max_mines():
 	var new_max_mines := user_width * user_height
-	$ConfigContainer/MinesInput.max_value = new_max_mines
-	$ConfigContainer/MinesInput.value = mini($ConfigContainer/MinesInput.value, new_max_mines)
+	%MinesInput.max_value = new_max_mines
+	%MinesInput.value = mini(%MinesInput.value, new_max_mines)
 	update_start_button_disable()
 
 func update_start_button_disable():
@@ -32,9 +32,9 @@ func update_start_button_disable():
 
 ## Resets the configuration values
 func reset():
-	$ConfigContainer/WidthInput.value = 0.0
-	$ConfigContainer/HeightInput.value = 0.0
-	$ConfigContainer/MinesInput.value = 0.0
+	%WidthInput.value = 0.0
+	%HeightInput.value = 0.0
+	%MinesInput.value = 0.0
 	user_width = 0
 	user_height = 0
 	user_mines = 0
