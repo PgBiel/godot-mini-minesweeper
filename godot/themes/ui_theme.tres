@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dgvkguk1hjwkt"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dgvkguk1hjwkt"]
 
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="1_8b237"]
 
@@ -41,7 +41,49 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj85r"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 21.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0)
+draw_center = false
+border_width_bottom = 3
+border_color = Color(0.552941, 0.611765, 0.941176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkk2d"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 21.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcsam"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 21.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0)
+draw_center = false
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avtkj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.25, 0.25, 0.25, 1)
+border_color = Color(0.175, 0.175, 0.175, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [resource]
+default_font = ExtResource("1_8b237")
+default_font_size = 32
 Button/font_sizes/font_size = 32
 Button/fonts/font = ExtResource("1_8b237")
 FlatButton/base_type = &"Button"
@@ -68,4 +110,8 @@ NormalBigButton/styles/focus = SubResource("StyleBoxFlat_gqkkt")
 NormalBigButton/styles/hover = SubResource("StyleBoxFlat_521li")
 NormalBigButton/styles/normal = SubResource("StyleBoxFlat_gqkkt")
 NormalBigButton/styles/pressed = SubResource("StyleBoxFlat_521li")
+OptionButton/styles/focus = SubResource("StyleBoxFlat_mj85r")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_fkk2d")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_dcsam")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_avtkj")
 TooltipLabel/font_sizes/font_size = 28
