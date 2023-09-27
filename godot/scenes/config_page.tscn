@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8bvbbmitr340"]
+
+[ext_resource type="Theme" uid="uid://dgvkguk1hjwkt" path="res://themes/ui_theme.tres" id="1_m3s3u"]
+[ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="2_w1mw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sdf0a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sfykv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbppv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jvm3t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07vrl"]
+
+[node name="ConfigPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConfigContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Titlebar" type="Control" parent="ConfigContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ReturnButton" type="Button" parent="ConfigContainer/Titlebar"]
+layout_mode = 1
+offset_left = 15.0
+offset_right = 179.0
+offset_bottom = 55.0
+size_flags_horizontal = 0
+mouse_filter = 1
+theme = ExtResource("1_m3s3u")
+theme_type_variation = &"FlatButton"
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sdf0a")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sfykv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dbppv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_jvm3t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07vrl")
+text = "< BACK"
+
+[node name="ConfigTitle" type="Label" parent="ConfigContainer/Titlebar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.5
+offset_right = 99.5
+offset_bottom = 55.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("2_w1mw7")
+theme_override_font_sizes/font_size = 60
+text = "Game Settings"
+
+[node name="ConfigTabs" type="TabContainer" parent="ConfigContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_m3s3u")
+theme_type_variation = &"SettingsTabContainer"
+
+[node name="General" type="ScrollContainer" parent="ConfigContainer/ConfigTabs"]
+layout_mode = 2
+theme = ExtResource("1_m3s3u")
+
+[node name="GeneralBox" type="VBoxContainer" parent="ConfigContainer/ConfigTabs/General"]
+layout_mode = 2
+
+[node name="ThemeLine" type="HBoxContainer" parent="ConfigContainer/ConfigTabs/General/GeneralBox"]
+layout_mode = 2
+
+[node name="ThemeLabel" type="Label" parent="ConfigContainer/ConfigTabs/General/GeneralBox/ThemeLine"]
+layout_mode = 2
+text = "Theme: "
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="ConfigContainer/ConfigTabs/General/GeneralBox/ThemeLine"]
+layout_mode = 2
+text = "heyyyyy lol"
+color = Color(0.580392, 0.521569, 0, 1)
+
+[node name="Other" type="Control" parent="ConfigContainer/ConfigTabs"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfigContainer/ConfigTabs/Other"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "WIP..."
