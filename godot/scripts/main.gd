@@ -1,7 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	%Ingame.hide_with_hud()
+	switch_to_start_menu()
 
 ## Starts the game (upon start button click).
 func start() -> void:
@@ -12,7 +12,8 @@ func start() -> void:
 	switch_to_ingame()
 	%Ingame.enable_game()
 
-## Returns to the start menu when the user clicks "BACK".
+## Returns to the start menu when the user clicks "BACK"
+## from ingame.
 func go_back() -> void:
 	%StartMenuHUD.show_continue()
 	switch_to_start_menu()
@@ -21,14 +22,23 @@ func go_back() -> void:
 func resume_game() -> void:
 	switch_to_ingame()
 
+func hide_huds_and_menus() -> void:
+	%StartMenuHUD.hide()
+	%Ingame.disable_game()
+	%Ingame.hide_with_hud()
+	%ConfigPage.hide()
+
 ## Hides the start menu and shows the in-game HUD and UI.
 func switch_to_ingame() -> void:
-	%StartMenuHUD.hide()
+	hide_huds_and_menus()
 	%Ingame.show_with_hud()
 	%Ingame.enable_game()
 
 ## Hides the in-game HUD and UI and shows the start menu.
 func switch_to_start_menu() -> void:
-	%Ingame.disable_game()
-	%Ingame.hide_with_hud()
+	hide_huds_and_menus()
 	%StartMenuHUD.show()
+
+func switch_to_settings() -> void:
+	hide_huds_and_menus()
+	%ConfigPage.show()

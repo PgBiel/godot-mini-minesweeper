@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal start_button_clicked
 signal continue_button_clicked
+signal settings_button_clicked
 
 ## User-provided grid width (in cells)
 var user_width: int = 0
@@ -146,3 +147,6 @@ func apply_preset(index: int) -> void:
 		_set_mines(mines, true)
 	else:
 		print_debug("[!!!] Somehow got an invalid index from PresetInput: %d" % index)
+
+func _on_settings_button_pressed() -> void:
+	settings_button_clicked.emit()

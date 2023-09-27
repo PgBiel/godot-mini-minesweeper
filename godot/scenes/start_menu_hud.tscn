@@ -27,7 +27,6 @@ text = "Start"
 
 [node name="ContinueButton" type="Button" parent="."]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -154,9 +153,16 @@ popup/item_2/id = 2
 popup/item_3/text = "Custom"
 popup/item_3/id = 3
 
+[node name="SettingsButton" type="Button" parent="AdjacentConfigContainer"]
+layout_mode = 2
+theme = ExtResource("3_50yix")
+theme_type_variation = &"FlatButton"
+text = "Settings..."
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="value_changed" from="ConfigContainer/WidthInput" to="." method="_on_width_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/HeightInput" to="." method="_on_height_input_value_changed"]
 [connection signal="value_changed" from="ConfigContainer/MinesInput" to="." method="_on_mines_input_value_changed"]
 [connection signal="item_selected" from="AdjacentConfigContainer/PresetControl/PresetInput" to="." method="apply_preset"]
+[connection signal="pressed" from="AdjacentConfigContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

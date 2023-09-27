@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://yg70wasq4js6"]
+[gd_scene load_steps=5 format=3 uid="uid://yg70wasq4js6"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0r2jf"]
 [ext_resource type="PackedScene" uid="uid://bjob57vcphlia" path="res://scenes/start_menu_hud.tscn" id="1_420cq"]
+[ext_resource type="PackedScene" uid="uid://b8bvbbmitr340" path="res://scenes/config_page.tscn" id="3_kxc86"]
 [ext_resource type="PackedScene" uid="uid://b5w7vh4owx24e" path="res://scenes/ingame.tscn" id="3_rf8qo"]
 
 [node name="Main" type="Node"]
@@ -18,9 +19,14 @@ color = Color(0.709804, 0.45098, 0.176471, 1)
 [node name="Ingame" parent="." instance=ExtResource("3_rf8qo")]
 unique_name_in_owner = true
 
+[node name="ConfigPage" parent="." instance=ExtResource("3_kxc86")]
+unique_name_in_owner = true
+
 [node name="StartMenuHUD" parent="." instance=ExtResource("1_420cq")]
 unique_name_in_owner = true
 
 [connection signal="go_back_requested" from="Ingame" to="." method="go_back"]
+[connection signal="go_back_requested" from="ConfigPage" to="." method="switch_to_start_menu"]
 [connection signal="continue_button_clicked" from="StartMenuHUD" to="." method="resume_game"]
+[connection signal="settings_button_clicked" from="StartMenuHUD" to="." method="switch_to_settings"]
 [connection signal="start_button_clicked" from="StartMenuHUD" to="." method="start"]

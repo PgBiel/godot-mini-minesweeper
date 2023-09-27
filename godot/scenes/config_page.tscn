@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8bvbbmitr340"]
+[gd_scene load_steps=9 format=3 uid="uid://b8bvbbmitr340"]
 
 [ext_resource type="Theme" uid="uid://dgvkguk1hjwkt" path="res://themes/ui_theme.tres" id="1_m3s3u"]
+[ext_resource type="Script" path="res://scripts/config_page.gd" id="1_u3xrp"]
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="2_w1mw7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sdf0a"]
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_u3xrp")
 
 [node name="ConfigContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -35,6 +37,7 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="ReturnButton" type="Button" parent="ConfigContainer/Titlebar"]
+unique_name_in_owner = true
 layout_mode = 1
 offset_left = 15.0
 offset_right = 179.0
@@ -52,7 +55,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_07vrl")
 text = "< BACK"
 
 [node name="ConfigTitle" type="Label" parent="ConfigContainer/Titlebar"]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -100,3 +102,5 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "WIP..."
+
+[connection signal="pressed" from="ConfigContainer/Titlebar/ReturnButton" to="." method="_on_return_button_pressed"]
