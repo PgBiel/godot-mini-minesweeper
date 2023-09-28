@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://dgvkguk1hjwkt"]
+[gd_resource type="Theme" load_steps=20 format=3 uid="uid://dgvkguk1hjwkt"]
 
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="1_8b237"]
 [ext_resource type="Texture2D" uid="uid://421guxu74ghk" path="res://assets/art/ui/pixel-radio-button-16-white.png" id="2_cu73c"]
@@ -98,6 +98,12 @@ content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gck37"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 1.0
+bg_color = Color(1, 1, 1, 0.243137)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0p3x"]
 content_margin_left = 10.0
 content_margin_right = 10.0
@@ -155,6 +161,7 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_3pcxw")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_avtkj")
 SettingsTabContainer/base_type = &"TabContainer"
 SettingsTabContainer/styles/panel = SubResource("StyleBoxEmpty_g66us")
+SettingsTabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_gck37")
 SettingsTabContainer/styles/tab_selected = SubResource("StyleBoxFlat_i0p3x")
 SettingsTabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_eej4s")
 TooltipLabel/font_sizes/font_size = 28
