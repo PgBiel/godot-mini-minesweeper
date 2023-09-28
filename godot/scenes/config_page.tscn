@@ -81,14 +81,22 @@ theme = ExtResource("1_m3s3u")
 [node name="GeneralBox" type="VBoxContainer" parent="ConfigContainer/ConfigTabs/General"]
 layout_mode = 2
 
-[node name="ThemeLine" type="HBoxContainer" parent="ConfigContainer/ConfigTabs/General/GeneralBox"]
+[node name="Appearance" type="ScrollContainer" parent="ConfigContainer/ConfigTabs"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_m3s3u")
+
+[node name="AppearanceBox" type="VBoxContainer" parent="ConfigContainer/ConfigTabs/Appearance"]
 layout_mode = 2
 
-[node name="ThemeLabel" type="Label" parent="ConfigContainer/ConfigTabs/General/GeneralBox/ThemeLine"]
+[node name="ThemeLine" type="HBoxContainer" parent="ConfigContainer/ConfigTabs/Appearance/AppearanceBox"]
+layout_mode = 2
+
+[node name="ThemeLabel" type="Label" parent="ConfigContainer/ConfigTabs/Appearance/AppearanceBox/ThemeLine"]
 layout_mode = 2
 text = "Theme: "
 
-[node name="ThemePicker" type="ColorPickerButton" parent="ConfigContainer/ConfigTabs/General/GeneralBox/ThemeLine"]
+[node name="ThemePicker" type="ColorPickerButton" parent="ConfigContainer/ConfigTabs/Appearance/AppearanceBox/ThemeLine"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "heyyyyy lol"
