@@ -113,3 +113,4 @@ offset_bottom = 23.0
 text = "WIP..."
 
 [connection signal="pressed" from="ConfigContainer/Titlebar/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="color_changed" from="ConfigContainer/ConfigTabs/Appearance/AppearanceBox/ThemeLine/ThemePicker" to="." method="_on_theme_picker_color_changed"]

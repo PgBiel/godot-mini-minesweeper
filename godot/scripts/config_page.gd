@@ -10,3 +10,6 @@ func _ready() -> void:
 
 func _on_return_button_pressed() -> void:
 	go_back_requested.emit()
+
+func _on_theme_picker_color_changed(color: Color) -> void:
+	GameConfig.appearance_bg.write(color)

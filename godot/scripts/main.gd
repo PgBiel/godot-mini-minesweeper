@@ -2,6 +2,7 @@ extends Node
 
 func _ready() -> void:
 	switch_to_start_menu()
+	GameConfig.appearance_bg_changed.connect(set_background)
 
 ## Starts the game (upon start button click).
 func start() -> void:
@@ -42,3 +43,6 @@ func switch_to_start_menu() -> void:
 func switch_to_settings() -> void:
 	hide_huds_and_menus()
 	%ConfigPage.show()
+
+func set_background(color: Color) -> void:
+	%Background.color = color
