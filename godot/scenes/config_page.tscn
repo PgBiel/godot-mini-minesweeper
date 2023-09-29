@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8bvbbmitr340"]
+[gd_scene load_steps=13 format=3 uid="uid://b8bvbbmitr340"]
 
 [ext_resource type="Theme" uid="uid://dgvkguk1hjwkt" path="res://themes/ui_theme.tres" id="1_m3s3u"]
 [ext_resource type="Script" path="res://scripts/config_page.gd" id="1_u3xrp"]
 [ext_resource type="FontFile" uid="uid://c2aiuxvr37jfi" path="res://assets/fonts/romulus_by_pix3m_d6aokem.ttf" id="2_w1mw7"]
+[ext_resource type="Texture2D" uid="uid://citt75sndw8fg" path="res://assets/art/turned-tile-1.png" id="4_3i8ik"]
+[ext_resource type="Shader" path="res://shaders/circle-tile.gdshader" id="5_gg7qs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sdf0a"]
 
@@ -14,6 +16,12 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07vrl"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_8qdy4"]
+viewport_path = NodePath("CircleTileViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gmsol"]
+shader = ExtResource("5_gg7qs")
+
 [node name="ConfigPage" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -21,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_m3s3u")
 script = ExtResource("1_u3xrp")
 
 [node name="ConfigContainer" type="VBoxContainer" parent="."]
@@ -102,6 +111,33 @@ layout_mode = 2
 text = "heyyyyy lol"
 color = Color(0.709804, 0.45098, 0.176471, 1)
 
+[node name="Effects" type="ScrollContainer" parent="ConfigContainer/ConfigTabs"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_m3s3u")
+
+[node name="EffectBox" type="VBoxContainer" parent="ConfigContainer/ConfigTabs/Effects"]
+layout_mode = 2
+
+[node name="TileStyleLine" type="HBoxContainer" parent="ConfigContainer/ConfigTabs/Effects/EffectBox"]
+layout_mode = 2
+
+[node name="TileStyleLabel" type="Label" parent="ConfigContainer/ConfigTabs/Effects/EffectBox/TileStyleLine"]
+layout_mode = 2
+text = "Tile Style: "
+
+[node name="TileStyleButton" type="OptionButton" parent="ConfigContainer/ConfigTabs/Effects/EffectBox/TileStyleLine"]
+layout_mode = 2
+theme = ExtResource("1_m3s3u")
+item_count = 2
+selected = 0
+popup/item_0/text = "Square"
+popup/item_0/icon = ExtResource("4_3i8ik")
+popup/item_0/id = 0
+popup/item_1/text = "Circle"
+popup/item_1/icon = SubResource("ViewportTexture_8qdy4")
+popup/item_1/id = 1
+
 [node name="Other" type="Control" parent="ConfigContainer/ConfigTabs"]
 visible = false
 layout_mode = 2
@@ -111,6 +147,15 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "WIP..."
+
+[node name="CircleTileViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(32, 32)
+
+[node name="CircleTile" type="Sprite2D" parent="CircleTileViewport"]
+material = SubResource("ShaderMaterial_gmsol")
+texture = ExtResource("4_3i8ik")
+centered = false
 
 [connection signal="pressed" from="ConfigContainer/Titlebar/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="color_changed" from="ConfigContainer/ConfigTabs/Theme/ThemeBox/BgLine/BgPicker" to="." method="_on_theme_picker_color_changed"]
