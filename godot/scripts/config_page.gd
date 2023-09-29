@@ -5,7 +5,7 @@ signal go_back_requested
 
 func _ready() -> void:
 	# disable 'swatches' and 'recent colors'
-	var picker: ColorPicker = %ThemePicker.get_picker()
+	var picker: ColorPicker = %BgPicker.get_picker()
 	picker.presets_visible = false
 
 func _on_return_button_pressed() -> void:
