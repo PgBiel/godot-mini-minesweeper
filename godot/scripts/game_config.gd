@@ -2,6 +2,13 @@
 extends Node
 
 signal appearance_bg_changed(new_value: Color)
+signal effects_tilestyle_changed(new_value: TileStyle)
+
+## Possible tile styles.
+enum TileStyle {
+	SQUARE,
+	CIRCLE
+}
 
 ## A generic setting.
 class Setting:
@@ -52,5 +59,20 @@ class ColorSetting extends Setting:
 	func write(new_value: Color) -> void:
 		super(new_value)
 
+## A setting which is also a TileStyle.
+class TileStyleSetting extends Setting:
+	func _init(sgn: Signal, default: TileStyle) -> void:
+		super(sgn, default)
+
+	func read() -> TileStyle:
+		return super()
+
+	func write(new_value: TileStyle) -> void:
+		super(new_value)
+
 ## The game's background setting.
 var appearance_bg := ColorSetting.new(appearance_bg_changed, Color("b5732d"))
+
+## Tile style effect to apply.
+var effects_tilestyle := \
+	TileStyleSetting.new(effects_tilestyle_changed, TileStyle.SQUARE)
