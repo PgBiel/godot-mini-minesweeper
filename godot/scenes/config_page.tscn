@@ -159,3 +159,4 @@ centered = false
 
 [connection signal="pressed" from="ConfigContainer/Titlebar/ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="color_changed" from="ConfigContainer/ConfigTabs/Theme/ThemeBox/BgLine/BgPicker" to="." method="_on_theme_picker_color_changed"]
+[connection signal="item_selected" from="ConfigContainer/ConfigTabs/Effects/EffectBox/TileStyleLine/TileStyleButton" to="." method="_on_tile_style_button_item_selected"]

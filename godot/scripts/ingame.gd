@@ -5,8 +5,11 @@ signal go_back_requested
 
 var game_over := true
 
+var circle_shader: Shader = preload("res://shaders/circle-tile.gdshader")
+
 func _ready() -> void:
 	disable_game()
+	GameConfig.effects_tilestyle_changed.connect(update_tilestyle)
 
 ## Starts the game. Make sure to call 'enable_game()' afterwards.
 ## Takes the width and height of the board, alongside its expected
@@ -60,3 +63,13 @@ func update_mines_left_count(new_mines_left_count: int) -> void:
 func _on_game_grid_victory() -> void:
 	end_game()
 	%IngameHUD.set_result_victory()
+
+## Updates the game grid's tile style.
+func update_tilestyle(new_value: GameConfig.TileStyle):
+	match new_value:
+		GameConfig.TileStyle.SQUARE:
+			%GameGrid.material = null
+		GameConfig.TileStyle.CIRCLE:
+			var material := ShaderMaterial.new()
+			material.shader = circle_shader
+			%GameGrid.material = material

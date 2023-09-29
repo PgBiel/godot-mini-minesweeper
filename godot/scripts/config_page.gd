@@ -13,3 +13,13 @@ func _on_return_button_pressed() -> void:
 
 func _on_theme_picker_color_changed(color: Color) -> void:
 	GameConfig.appearance_bg.write(color)
+
+# Maps each tilestyle button option index to a tilestyle enum instance.
+var _tilestyle_map: Array[GameConfig.TileStyle] = [
+	GameConfig.TileStyle.SQUARE,
+	GameConfig.TileStyle.CIRCLE
+]
+
+func _on_tile_style_button_item_selected(index: int) -> void:
+	assert(index >= 0 && index < _tilestyle_map.size())
+	GameConfig.effects_tilestyle.write(_tilestyle_map[index])
